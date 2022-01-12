@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Socket.IO Chat</title>
+    <style media="screen">
+      .input-area {
+        position:absolute;
+        bottom: 0;
+        color:red;
+        width: 100%;
+        display: flex;
+        border: 2px solid lightgrey;
+        margin-bottom: 5rem;
+        height:2rem;
+      }
+      .btn-send {
+        flex-grow: 1;
+        max-width: 25%;
+      }
+      #text-message {
+        flex-grow: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <div class="input-area">
+      <input id="text-message" /><button id="btn-send">Send</button>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io()
+      const messageInput = document.getElementById("text-message")
+      const btnSend = document.getElementById("btn-send")
+
+      function submitMsg() {
+        socket.emit('chat message', messageInput.value)
+        messageInput.value = ""
+      }
+
+      // Event
+      btnSend.addEventListener("click", submitMsg);
+      messageInput.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          btnSend.click();
+        }
+      });
+
+      function handleIncomingMsg(msg) {
+        var li = document.createElement('li')
+        li.innerText = msg
+        document.getElementById('messages').appendChild(li)
+      }
+
+      socket.on('chat message', handleIncomingMsg)
+
+    </script>
+  </body>
+</html>

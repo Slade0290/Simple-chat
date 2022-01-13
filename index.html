@@ -2,41 +2,111 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Socket.IO Chat</title>
+    <title>Simple Chat</title>
     <style media="screen">
+      .title, .subtitle{
+        text-align: center;
+      }
       .input-area {
-        position:absolute;
-        bottom: 0;
-        color:red;
-        width: 100%;
+        position: absolute;
         display: flex;
         border: 2px solid lightgrey;
-        margin-bottom: 5rem;
         height:2rem;
+        bottom: 0;
+        width: 99%;
       }
-      .btn-send {
-        flex-grow: 1;
-        max-width: 25%;
+      #messages {
+        margin: 0 .5rem .5rem .5rem;
+        display: flex;
+        flex-direction: column;
+        gap: .2rem;
+      }
+      #messages .message-item {
+        background-color: lightblue;
+        padding: .5rem;
+        border-radius: 5px;
+        width: fit-content;
+      }
+      #messages .left-side {
+        margin-right: auto;
+      }
+      #messages .right-side {
+        margin-left: auto;
       }
       #text-message {
         flex-grow: 1;
       }
+      .main-container {
+        position: relative;
+        border: 1px solid black;
+        max-width: 50vw;
+        margin: 0 auto;
+        min-height: 60vh;
+        max-height: 60vh;
+      }
+      #msg-container {
+        max-height: 56.5vh;
+        overflow: scroll;
+        bottom: 2rem;
+        position: absolute;
+        width: 100%;
+      }
+      .tech-list {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        margin: 3rem;
+      }
     </style>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <div class="input-area">
-      <input id="text-message" /><button id="btn-send">Send</button>
+    <h1 class="title">Simple chat</h1>
+    <h3 class="subtitle">Using</h3>
+    <ul class="tech-list">
+      <li>Socket.io</li>
+      <li>Express</li>
+      <li>Marionette</li>
+      <li>Handlebars</li>
+      <li>Webpack</li>
+      <li>Sass</li>
+    </ul>
+    <div class="main-container">
+      <div id="msg-container">
+        <div id="messages"></div>
+      </div>
+      <div class="input-area">
+        <input id="text-message" /><button id="btn-send">Send</button>
+      </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+
+      // TODO :
+      // split js & css files
+      // diff between out and in msg
+
+      // Global const
       const socket = io()
       const messageInput = document.getElementById("text-message")
       const btnSend = document.getElementById("btn-send")
+      const msgContainer = document.getElementById('msg-container')
+      const messages = document.getElementById('messages')
 
+      // Handle messages
       function submitMsg() {
-        socket.emit('chat message', messageInput.value)
-        messageInput.value = ""
+        if(messageInput.value !== '') {
+          socket.emit('chat message', messageInput.value)
+          messageInput.value = ""
+        }
+      }
+
+      function handleIncomingMsg(msg) {
+        var div = document.createElement('div')
+        div.classList.add("message-item")
+        div.classList.add("right-side")
+        div.innerText = msg
+        messages.appendChild(div)
+        msgContainer.scrollTop = msgContainer.scrollHeight - msgContainer.clientHeight;
       }
 
       // Event
@@ -47,12 +117,7 @@
         }
       });
 
-      function handleIncomingMsg(msg) {
-        var li = document.createElement('li')
-        li.innerText = msg
-        document.getElementById('messages').appendChild(li)
-      }
-
+      // Socket
       socket.on('chat message', handleIncomingMsg)
 
     </script>

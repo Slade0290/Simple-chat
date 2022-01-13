@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple Chat</title>
+    <link href="/stylesheets/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1 class="title">Simple chat</h1>
+    <h3 class="subtitle">Using</h3>
+    <div class="tech-list">
+      <a href="https://socket.io/">Socket.io</a>
+      <a href="https://expressjs.com/fr/">Express</a>
+      <a href="https://marionettejs.com/">Marionette</a>
+      <a href="https://handlebarsjs.com/">Handlebars</a>
+      <a href="https://webpack.js.org/">Webpack</a>
+      <a href="https://sass-lang.com/">Sass</a>
+    </div>
+    <div class="main-container">
+      <div id="msg-container">
+        <div id="messages"></div>
+      </div>
+      <div class="input-area">
+        <input id="text-message" autofocus/><button id="btn-send">Send</button>
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascript/script.js"></script>
+  </body>
+</html>

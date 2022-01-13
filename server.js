@@ -1,11 +1,10 @@
-var app = require('express')()
+var express = require('express')
+var app = express()
 var http = require('http').Server(app)
 var io = require('socket.io')(http)
 var path = require('path')
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'index.html')) // REPLACE
-})
+app.use(express.static('public'))
 
 io.on('connection', function(socket) {
 
@@ -14,9 +13,10 @@ io.on('connection', function(socket) {
     console.log('an user is disconnect')
   })
 
-  socket.on('chat message', function(msg) {
+  socket.on('chat message', function(author, msg) {
     console.log('message reçu :', msg)
-    io.emit('chat message', msg)
+    console.log('auteur du message :', author)
+    io.emit('chat message', author, msg)
   })
 })
 

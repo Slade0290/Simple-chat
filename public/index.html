@@ -14,17 +14,33 @@
       <a href="https://marionettejs.com/">Marionette</a>
       <a href="https://handlebarsjs.com/">Handlebars</a>
       <a href="https://webpack.js.org/">Webpack</a>
+      <a href="https://gruntjs.com/">Grunt</a>
+      <a href="https://lodash.com/">Lodash</a>
       <a href="https://sass-lang.com/">Sass</a>
+      <a href="https://momentjs.com/">Moment</a>
+      <a href="https://coffeescript.org/">CoffeeScript</a>
     </div>
     <div class="main-container">
+      <div id="modalUsername" class="modal">
+        <div class="modal-content">
+          <p>Please enter your name</p>
+          <input type="text" id="usernameInput" autofocus/>
+          <button type="button" id="btn-username">Enter</button>
+        </div>
+      </div>
       <div id="msg-container">
         <div id="messages"></div>
       </div>
       <div class="input-area">
-        <input id="text-message" autofocus/><button id="btn-send">Send</button>
+        <input id="text-message"/><button id="btn-send">Send</button>
       </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascript/script.js"></script>
+    <section>
+      <div class="footer">
+        LY David - 2022
+      </div>
+    </section>
   </body>
 </html>

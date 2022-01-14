@@ -7,16 +7,20 @@ var path = require('path')
 app.use(express.static('public'))
 
 io.on('connection', function(socket) {
+  console.log('a user is connected')
 
-  console.log('an user is connected')
-  socket.on('disconnect', function() {
-    console.log('an user is disconnect')
+  socket.on('chat message', function(username, msg, date) {
+    console.log('message reçu :', msg)
+    console.log('auteur du message :', username)
+    io.emit('chat message', username, msg, date)
   })
 
-  socket.on('chat message', function(author, msg) {
-    console.log('message reçu :', msg)
-    console.log('auteur du message :', author)
-    io.emit('chat message', author, msg)
+  socket.on('admin info connected', function(username) {
+    io.emit('admin info connected', username, "Please welcome ")
+    socket.on('disconnect', function() {
+      io.emit('admin info disconnected', username, "Say goodbye to ")
+      console.log('a user is disconnect')
+    })
   })
 })
 

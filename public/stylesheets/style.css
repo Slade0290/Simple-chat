@@ -45,14 +45,18 @@ html, body {
   overflow: scroll;
   flex: 1;
   background-color: whitesmoke;
+  position: relative;
 }
 #msg-container #messages {
   margin: 0 0.7rem 0.7rem 0.7rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 100%;
+  min-height: 100%;
+  width: 94%;
   gap: 0.2rem;
+  overflow: scroll;
+  position: absolute;
 }
 #msg-container #messages .message-item {
   padding: 0.5rem;

@@ -9,7 +9,8 @@ const modal = document.getElementById("modalUsername");
 const usernameInput = document.getElementById('usernameInput')
 const btnUsername = document.getElementById('btn-username')
 let _username = ""
-
+let lastMsgAuthor = ""
+let showUsername = true;
 // Define username
 function submitUsername() {
   if(usernameInput.value !== '') {
@@ -29,12 +30,11 @@ function submitMsg() {
 
 function handleIncomingMsg(username,msg,date) {
   var side = (_username === username) ? "right" : "left"
+  showUsername = (lastMsgAuthor === username) ? false : true
+  lastMsgAuthor = username
   var divMsgAndName = document.createElement('div')
   divMsgAndName.classList.add("msg-n-username")
   divMsgAndName.classList.add(`${side}-side`)
-  var divUsername = document.createElement('div')
-  divUsername.classList.add("username-label")
-  divUsername.innerText = username
   var divMsg = document.createElement('div')
   divMsg.classList.add("message-item")
   divMsg.classList.add(`${side}-color`)
@@ -43,7 +43,12 @@ function handleIncomingMsg(username,msg,date) {
   divDate.classList.add(`${side}-date`)
   divDate.classList.add("date-msg")
   divDate.innerText = date
-  divMsgAndName.appendChild(divUsername)
+  if(showUsername) {
+    var divUsername = document.createElement('div')
+    divUsername.classList.add("username-label")
+    divUsername.innerText = username
+    divMsgAndName.appendChild(divUsername)
+  }
   divMsgAndName.appendChild(divMsg)
   divMsgAndName.appendChild(divDate)
   messages.appendChild(divMsgAndName)

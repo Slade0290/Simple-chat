@@ -1,4 +1,8 @@
 
+// Import
+import moment from 'moment'
+import io from 'socket.io-client'
+
 // Global const
 const socket = io()
 const messageInput = document.querySelector("#text-message")
@@ -11,6 +15,7 @@ const btnUsername = document.getElementById('btn-username')
 let _username = ""
 let lastMsgAuthor = ""
 let showUsername = true;
+
 // Define username
 function submitUsername() {
   if(usernameInput.value !== '') {
@@ -23,7 +28,7 @@ function submitUsername() {
 // Handle messages
 function submitMsg() {
   if(messageInput.value !== '') {
-    socket.emit('chat message', _username, messageInput.value, new Date(Date.now()))
+    socket.emit('chat message', _username, messageInput.value, moment().format('MMMM Do YYYY, h:mm:ss a'))
     messageInput.value = ""
   }
 }

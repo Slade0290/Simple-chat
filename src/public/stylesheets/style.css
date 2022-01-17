@@ -25,6 +25,7 @@ html, body {
   text-align: center;
   transition: 0.5s;
   cursor: pointer;
+  line-height: 1.5rem;
 }
 .tech-list a:hover {
   background-color: SteelBlue;

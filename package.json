@@ -4,7 +4,6 @@
   "description": "Using - Socket.io - Express and many more",
   "main": "server.js",
   "dependencies": {
-    "browser-sync-webpack-plugin": "^2.3.0",
     "express": "^4.17.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",

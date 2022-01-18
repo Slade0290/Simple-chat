@@ -2,7 +2,6 @@ let path = require('path')
 const SymlinkWebpackPlugin = require('symlink-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require("copy-webpack-plugin")
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 module.exports = {
     entry: './src/public/js/script.js',
@@ -21,13 +20,6 @@ module.exports = {
       patterns: [
         { from: "src/server", to: "../server" }
         ],
-      }),
-      new BrowserSyncPlugin({
-        // browse to http://localhost:3000/ during development,
-        // ./public directory is being served
-        host: 'localhost',
-        port: 3000,
-        server: { baseDir: ['build/public'] }
       })
     ],
     module: {

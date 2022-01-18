@@ -2,6 +2,7 @@
 // Import
 import moment from 'moment'
 import io from 'socket.io-client'
+import '../css/style.scss'
 
 // Global const
 const socket = io()

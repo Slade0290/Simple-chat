@@ -1,7 +1,7 @@
 let path = require('path')
-const SymlinkWebpackPlugin = require('symlink-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require("copy-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     entry: './src/public/js/script.js',
@@ -12,6 +12,7 @@ module.exports = {
       filename: 'bundle.js'
     },
     plugins: [
+      new MiniCssExtractPlugin(),
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: 'src/public/index.html'
@@ -28,7 +29,7 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
-          "style-loader",
+          MiniCssExtractPlugin.loader,
           // Translates CSS into CommonJS
           "css-loader",
           // Compiles Sass to CSS

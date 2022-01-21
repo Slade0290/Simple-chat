@@ -3,7 +3,24 @@ html, body {
     margin: 0;
     display: flex;
     flex-direction: column;
+		background: linear-gradient(45deg, rgba(64,65,68,1) 15%, rgba(78,87,129,1) 33%, rgba(71,76,101,1) 50%, rgba(94,106,154,1) 68%, rgba(85,86,91,1) 85%);
+		background-size: 400% 400%;
+		animation: gradient 30s ease infinite;
+    color: white;
 }
+
+@keyframes gradient {
+		0% {
+				background-position: 0% 50%;
+		}
+		50% {
+				background-position: 100% 50%;
+		}
+		100% {
+				background-position: 0% 50%;
+		}
+}
+
 .title, .subtitle{
   text-align: center;
 }
@@ -18,15 +35,14 @@ html, body {
     width: 15vw;
     text-decoration: none;
     padding: .5rem 0;
-    background-color: Aquamarine;
+    background-color: rgba(0,0,0,0.4);
     text-align: center;
     transition: .5s;
-    color: black;
+    color: white;
     cursor: pointer;
     line-height: 1.5rem;
     &:hover {
       background-color: SteelBlue;
-      color: white;
     }
   }
 }
@@ -43,7 +59,7 @@ html, body {
 #msg-container {
   overflow: scroll;
   flex: 1;
-  background-color: whitesmoke;
+  background-color: rgba(255,255,255,0.15);
   position: relative;
   #messages {
     margin: 0 .7rem .7rem .7rem;
@@ -64,6 +80,7 @@ html, body {
       flex-direction: column;
       .date-msg {
         display: none;
+        font-size: .5em;
       }
     }
     .left-side {
@@ -73,7 +90,7 @@ html, body {
       }
       .left-color {
         align-self: flex-start;
-        background-color: SeaShell;
+        background-color: RebeccaPurple;
       }
       .left-color:hover + .date-msg {
         display: block;
@@ -86,12 +103,10 @@ html, body {
       }
       .right-color {
         align-self: flex-end;
-        background-color: SteelBlue;
-        color: white;
+        background-color: ForestGreen;
       }
       .right-color:hover + .date-msg {
         display: block;
-        font-size: .5em;
       }
     }
   }
@@ -119,6 +134,7 @@ html, body {
 }
 
 .modal-content {
+  color: black;
   background-color: #fefefe;
   margin: 25% auto;
   padding: 20px;
@@ -133,6 +149,7 @@ html, body {
   }
 }
 .footer {
+	color:white;
   text-align: center;
   margin: 4rem;
   font-style: italic;

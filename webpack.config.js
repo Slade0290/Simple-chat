@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: './src/public/js/script.js',
+    entry: './src/public/js/script.coffee',
     watch: true,
     mode: 'development',
     output: {
@@ -18,24 +18,28 @@ module.exports = {
         template: 'src/public/index.html'
       }),
       new CopyPlugin({
-      patterns: [
-        { from: "src/server", to: "../server" }
+        patterns: [
+          { from: "src/server", to: "../server" }
         ],
       })
     ],
     module: {
-    rules: [
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          // Creates `style` nodes from JS strings
-          MiniCssExtractPlugin.loader,
-          // Translates CSS into CommonJS
-          "css-loader",
-          // Compiles Sass to CSS
-          "sass-loader",
-        ],
-      },
+      rules: [
+        {
+          test: /\.coffee$/,
+          loader: "coffee-loader",
+        },
+        {
+          test: /\.s[ac]ss$/i,
+          use: [
+            // Creates `style` nodes from JS strings
+            MiniCssExtractPlugin.loader,
+            // Translates CSS into CommonJS
+            "css-loader",
+            // Compiles Sass to CSS
+            "sass-loader",
+          ],
+        }
     ],
   },
 }

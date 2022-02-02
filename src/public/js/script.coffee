@@ -1,6 +1,6 @@
 import '../css/style.scss'
 import Marionette from 'backbone.marionette'
-import ChatView from '../js/views/chat'
+import UsernameFormView from '../js/views/usernameform'
 debug = require('debug')('worker:main')
 
 debug 'Hello there I\'m the main debugger'
@@ -9,8 +9,6 @@ app.addRegions
   main: '#main-container'
 
 app.on 'start', ->
-  chatView = new ChatView({
-    collection: new Backbone.Collection()
-  })
+  chatView = new UsernameFormView()
   app.getRegion('main').show chatView
 app.start()

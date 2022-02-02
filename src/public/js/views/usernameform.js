@@ -1,16 +1,10 @@
 var Marionette = require('backbone.marionette')
 
 var UsernameFormView = Marionette.ItemView.extend({
-  template: function() {
-    return `<p>Please enter your name</p>
-    <form>
-      <input type="text" id="usernameInput" autofocus/>
-      <button type="button" id="submitButton">Enter</button>
-    </form>`
-  },
+  template: require('../templates/usernameform.handlebars'),
 
   className: 'username-form-view',
-  
+
   ui: {
     usernameinput: '#usernameInput'
   },

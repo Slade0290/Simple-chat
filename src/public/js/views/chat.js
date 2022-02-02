@@ -26,15 +26,7 @@ var ChatMessageItem = Marionette.ItemView.extend({
 })
 
 var ChatView = Marionette.CompositeView.extend({
-  template: function() {
-    return `<div id="msg-container">
-      <div id="messages"></div>
-    </div>
-    <form class="input-area">
-      <input type="text" id="text-message"/>
-      <button type="button" id="btn-send">Send</button>
-    </form>`
-  },
+  template: require('../templates/chat.handlebars'),
 
   className: 'chatView',
 

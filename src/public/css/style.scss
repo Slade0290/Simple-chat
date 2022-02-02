@@ -46,7 +46,7 @@ html, body {
     }
   }
 }
-.main-container {
+#main-container {
   border: 1px solid black;
   width: 50vw;
   margin: 0 auto;
@@ -55,21 +55,24 @@ html, body {
   flex-direction: column;
   flex: 1;
 }
-
+.chatView {
+	display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  flex: 1;
+}
 #msg-container {
-  overflow: scroll;
+  overflow: auto;
   flex: 1;
   background-color: rgba(255,255,255,0.15);
   position: relative;
   #messages {
-    margin: 0 .7rem .7rem .7rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     min-height: 100%;
     width: 94%;
     gap: .2rem;
-    overflow: scroll;
     position: absolute;
     .message-item {
       padding: .5rem;

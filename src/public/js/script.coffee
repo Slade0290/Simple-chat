@@ -1,12 +1,14 @@
 import '../css/style.scss'
 import Marionette from 'backbone.marionette'
-import UsernameFormView from '../js/views/usernameform'
+import ChatView from '../js/views/chat'
 
 app = new Marionette.Application
 app.addRegions
-  main: '#body-hook'
+  main: '#main-container'
 
 app.on 'start', ->
-  formView = new UsernameFormView()
-  app.getRegion('main').show formView
+  chatView = new ChatView({
+    collection: new Backbone.Collection()
+  })
+  app.getRegion('main').show chatView
 app.start()

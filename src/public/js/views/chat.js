@@ -1,14 +1,19 @@
 var Marionette = require('backbone.marionette')
+var _ = require('underscore')
 
-var ChatMessageItem = Marionette.LayoutView.extend({
-  template: require('./templates/chatmessageitem'),
+var ChatMessageItem = Marionette.ItemView.extend({
+  initialize: function() {
+    console.log("initializing chatmessageitem",this.options);
+  },
+  template: _.template('<div class="message-item right-color"><%= text %></div>'),
 
   className: function(side) {
+    console.log("in classname of chat message item");
     // also add ${side}-date date-msg
     if(side) {
-      return "right"
+      return "chat-message-item right"
     }
-    return "left"
+    return "chat-message-item left"
   }
   // EXAMPLE
   // this.listenTo(this.model, 'change:name', function (name) {
@@ -18,10 +23,24 @@ var ChatMessageItem = Marionette.LayoutView.extend({
   // });
 })
 
-var ChatView = Marionette.CollectionView.extend({
-  template: require('./templates/chat'),
+var ChatView = Marionette.CompositeView.extend({
+  template: function() {
+    console.log("in template chatview")
+    return `<div id="msg-container">
+      <div id="messages"></div>
+    </div>
+    <form class="input-area">
+      <input type="text" id="text-message"/>
+      <button type="button" id="btn-send">Send</button>
+    </form>`
+  },
+
+  className: 'chatView',
+
   childView: ChatMessageItem,
   childViewContainer: '#messages',
+
+// Get le trigger username:selected ici and put in a var
 
   ui: {
     messages: '#messages',
@@ -29,27 +48,33 @@ var ChatView = Marionette.CollectionView.extend({
     buttonsendmessage: '#btn-send'
   },
 
-  triggers: {
-    'submit @ui.inputtext': 'send:chat:message'
+  events: {
+    'submit form': 'sendChatMessage'
   },
 
   collectionEvents: {
     add: 'messageSent'
   },
 
-  onSendChatMessage: function() {
-    // Get message from input and send it
-    this.collection.add({
-      // C'est flou la
-      // La collection view a une collection
-      // on ajoute l'item à la collection
-      // name: // Get le nickname from quelque part
-      text: this.ui.inputtext.val()
-    })
+  sendChatMessage: function() {
+    try {
+      console.log('this',this)
+      console.log('this.collection',this.collection)
+      this.collection.add({
+        // name: // Get le username from quelque part
+        text: this.ui.inputtext.val()
+      })
+      console.log('this.collection',this.collection)
+    } catch(e) {
+      console.error(e);
+    }
+    return false
   },
 
   messageSent: function() {
-    this.ui.inputmessage.val('')
+    this.ui.inputtext.val('')
+    console.log("this.ui.inputmessage.val('')", this.ui.inputtext.val(''))
+    return false
   }
 
 })

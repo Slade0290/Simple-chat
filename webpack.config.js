@@ -40,6 +40,11 @@ module.exports = {
             "sass-loader",
           ],
         }
-    ],
-  },
+      ],
+    },
+    resolve: {
+      alias: {
+          backbone: path.join(__dirname, 'node_modules', 'backbone')
+      }
+    }
 }

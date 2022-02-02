@@ -9,6 +9,9 @@
     "backbone.marionette": "^2.4.7",
     "backbone.wreqr": "^1.4.0",
     "express": "^4.17.2",
+    "file-system": "^2.2.2",
+    "handlebars": "^4.7.7",
+    "handlebars-loader": "^1.7.1",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
@@ -22,6 +25,7 @@
     "coffeescript": "^2.6.1",
     "copy-webpack-plugin": "^10.2.0",
     "css-loader": "^6.5.1",
+    "debug": "^4.3.3",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.5.2",
@@ -35,7 +39,7 @@
   },
   "scripts": {
     "dev": "rm -rf build && webpack",
-    "devStart": "nodemon build/server/index.js",
+    "devStart": "DEBUG=worker:* nodemon build/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

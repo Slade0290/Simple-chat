@@ -1,16 +1,18 @@
 var Marionette = require('backbone.marionette')
-var _ = require('underscore')
+var debug = require('debug')('worker:chat')
 
 var ChatMessageItem = Marionette.ItemView.extend({
   initialize: function() {
     console.log("initializing chatmessageitem",this.options);
+    debug("test - 0");
   },
-  template: _.template('<div class="message-item right-color"><%= text %></div>'),
 
-  className: function(side) {
-    console.log("in classname of chat message item");
+  template: require('../templates/chatmessageitem.handlebars'),
+
+  className: function() {
     // also add ${side}-date date-msg
-    if(side) {
+    console.log(arguments);
+    if(true) {
       return "chat-message-item right"
     }
     return "chat-message-item left"
@@ -25,7 +27,6 @@ var ChatMessageItem = Marionette.ItemView.extend({
 
 var ChatView = Marionette.CompositeView.extend({
   template: function() {
-    console.log("in template chatview")
     return `<div id="msg-container">
       <div id="messages"></div>
     </div>
@@ -58,13 +59,10 @@ var ChatView = Marionette.CompositeView.extend({
 
   sendChatMessage: function() {
     try {
-      console.log('this',this)
-      console.log('this.collection',this.collection)
       this.collection.add({
         // name: // Get le username from quelque part
         text: this.ui.inputtext.val()
       })
-      console.log('this.collection',this.collection)
     } catch(e) {
       console.error(e);
     }
@@ -73,8 +71,6 @@ var ChatView = Marionette.CompositeView.extend({
 
   messageSent: function() {
     this.ui.inputtext.val('')
-    console.log("this.ui.inputmessage.val('')", this.ui.inputtext.val(''))
-    return false
   }
 
 })

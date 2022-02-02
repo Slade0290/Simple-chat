@@ -25,6 +25,7 @@ module.exports = {
     ],
     module: {
       rules: [
+        { test: /\.handlebars$/, loader: "handlebars-loader" },
         {
           test: /\.coffee$/,
           loader: "coffee-loader",
@@ -44,7 +45,8 @@ module.exports = {
     },
     resolve: {
       alias: {
-          backbone: path.join(__dirname, 'node_modules', 'backbone')
+          backbone: path.join(__dirname, 'node_modules', 'backbone'),
+          handlebars: 'handlebars/dist/handlebars.min.js'
       }
     }
 }

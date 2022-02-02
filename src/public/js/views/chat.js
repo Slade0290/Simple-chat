@@ -33,9 +33,9 @@ var ChatView = Marionette.CompositeView.extend({
   childView: ChatMessageItem,
   childViewContainer: '#messages',
 
-// Get le trigger username:selected ici and put in a var
 
   ui: {
+    // Get le trigger username:selected ici and put in a var
     messages: '#messages',
     inputtext: '#text-message',
     buttonsendmessage: '#btn-send'

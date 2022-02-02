@@ -1,6 +1,6 @@
 import '../css/style.scss'
 import Marionette from 'backbone.marionette'
-import UsernameFormView from '../js/views/usernameform'
+import UsernameFormView from '../js/views/usernameform.coffee'
 debug = require('debug')('worker:main')
 
 debug 'Hello there I\'m the main debugger'

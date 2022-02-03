@@ -9,7 +9,8 @@ UsernameFormView = Marionette.ItemView.extend
     usernameinput: '#usernameInput'
 
   events:
-    'submit form': 'handleSubmit'
+    'submit form': 'handleSubmit',
+    'click #submitButton': 'handleSubmit'
 
   handleSubmit: ()->
     this.trigger 'username:selected', this.ui.usernameinput.val()

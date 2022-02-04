@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: './src/public/js/script.coffee',
+    entry: './src/public/scripts/main.coffee',
     watch: true,
     mode: 'development',
     output: {
@@ -25,7 +25,7 @@ module.exports = {
     ],
     module: {
       rules: [
-        { test: /\.handlebars$/, loader: "handlebars-loader" },
+        { test: /\.hbs$/, loader: "handlebars-loader" },
         {
           test: /\.coffee$/,
           loader: "coffee-loader",
@@ -44,9 +44,10 @@ module.exports = {
       ],
     },
     resolve: {
+      modules: ['src/public/scripts', 'node_modules'],
+      extensions: ['.js', '.hbs', '.coffee'],
       alias: {
-          backbone: path.join(__dirname, 'node_modules', 'backbone'),
-          handlebars: 'handlebars/dist/handlebars.min.js'
+          backbone: path.join(__dirname, 'node_modules', 'backbone')
       }
     }
 }

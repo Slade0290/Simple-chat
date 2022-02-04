@@ -8,9 +8,12 @@ username = ""
 app.use(express.static(path.join(__dirname,'../public')))
 
 io.on 'connection', (socket)->
+  console.log 'main.coffee - on connection'
 
-  socket.on 'chat:message', (username, msg, date)->
-    io.emit 'chat:message', username, msg, date
+  socket.on 'send:chat:message', (username, msg, date)->
+    console.log 'before emit'
+    io.emit 'emit:chat:message', username, msg, date
+    console.log 'after emit'
 
   socket.on 'set:username', (username) ->
     io.emit 'admin:info:connected', username

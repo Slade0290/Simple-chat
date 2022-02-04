@@ -83,5 +83,5 @@ usernameInput.addEventListener "keyup", (event) ->
 
  # Socket
 socket.on 'chat:message', handleIncomingMsg
-socket.on 'admin:info:connected', handleAdminInfo // #, "Please welcome "
-socket.on 'admin:info:disconnected', handleAdminInfo // #, "Say goodbye to "
+socket.on 'admin:info:connected', handleAdminInfo #, "Please welcome "
+socket.on 'admin:info:disconnected', handleAdminInfo #, "Say goodbye to "

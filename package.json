@@ -2,7 +2,7 @@
   "name": "chat-app",
   "version": "1.0.0",
   "description": "Using - Socket.io - Express and many more",
-  "main": "server.js",
+  "main": "index.js",
   "dependencies": {
     "backbone": "^1.3.3",
     "backbone.babysitter": "^1.0.0",
@@ -39,7 +39,7 @@
   },
   "scripts": {
     "dev": "rm -rf build && webpack",
-    "devStart": "DEBUG=worker:* nodemon build/server/index.js",
+    "devStart": "DEBUG=chat:* nodemon build/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

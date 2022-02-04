@@ -1,11 +1,9 @@
 import '../css/style.scss'
 import Marionette from 'backbone.marionette'
 import Backbone from 'backbone'
-import UsernameFormView from '../js/views/usernameform.coffee'
-import ChatView from '../js/views/chat.coffee'
-debug = require('debug')('worker:main')
+import UsernameFormView from 'views/usernameform'
+import ChatView from 'views/chat'
 
-debug 'Hello there I\'m the main debugger'
 app = new Marionette.Application
 app.addRegions
   main: '#main-container'

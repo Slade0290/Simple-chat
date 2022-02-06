@@ -1,8 +1,6 @@
 Marionette = require 'backbone.marionette'
 debug = require('debug')('chat:views:chat')
 import moment from 'moment'
-import io from 'socket.io-client'
-socket = io()
 
 class ChatMessageItem extends Marionette.ItemView
   template: require 'templates/chatmessageitem'
@@ -28,23 +26,22 @@ export default class ChatView extends Marionette.CompositeView
 
   initialize: ()->
     debug 'In initialize chatView'
-    self = this
-    socket.on 'emit:chat:message', (username, msg, date)->
-      self.showMsg username, msg, date
+    @options.socket.on 'emit:chat:message', (username, msg, date)=>
+      @showMsg username, msg, date
 
-    socket.on 'admin:info:connected', (username)->
-      self.showMsg "Admin", "Please welcome #{username}", moment().format('MMMM Do YYYY, h:mm:ss a')
+    @options.socket.on 'admin:info:connected', (username)=>
+      @showMsg "Admin", "Please welcome #{username}", moment().format('MMMM Do YYYY, h:mm:ss a')
 
-    socket.on 'admin:info:disconnected', (username)->
-      self.showMsg "Admin", "Say goodbye to #{username}", moment().format('MMMM Do YYYY, h:mm:ss a')
+    @options.socket.on 'admin:info:disconnected', (username)=>
+      @showMsg "Admin", "Say goodbye to #{username}", moment().format('MMMM Do YYYY, h:mm:ss a')
 
   sendChatMessage: ()->
     try
       textMsg = @ui.inputtext.val()
       username = @options.username
-      if(textMsg isnt '')
+      if textMsg
         date = moment().format('MMMM Do YYYY, h:mm:ss a')
-        socket.emit('send:chat:message', username, textMsg, date)
+        @options.socket.emit('send:chat:message', username, textMsg, date)
         console.log 'End sendChatMessage'
     catch e
       console.log 'in catch error'

@@ -1,6 +1,4 @@
 Marionette = require 'backbone.marionette'
-io = require 'socket.io-client'
-socket = io()
 
 class UsernameFormView extends Marionette.ItemView
   template: require 'templates/usernameform'
@@ -16,9 +14,6 @@ class UsernameFormView extends Marionette.ItemView
   handleSubmit: ()->
     username = @ui.usernameinput.val()
     @trigger 'username:selected', username
-    console.log 'username form view before set username'
-    socket.emit 'set:username', username
-    console.log 'username form view after set username'
     return false
 
 module.exports = UsernameFormView

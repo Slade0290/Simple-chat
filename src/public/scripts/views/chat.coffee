@@ -2,12 +2,12 @@ Marionette = require 'backbone.marionette'
 debug = require('debug')('chat:views:chat')
 import moment from 'moment'
 
-class ChatMessageItem extends Marionette.ItemView
+class ChatMessageItem extends Marionette.View
   template: require 'templates/chatmessageitem'
 
   className: "message-item"
 
-export default class ChatView extends Marionette.CompositeView
+export default class ChatView extends Marionette.CollectionView
   template: require 'templates/chat'
 
   className: 'chatView'

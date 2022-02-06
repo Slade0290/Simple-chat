@@ -1,6 +1,6 @@
 Marionette = require 'backbone.marionette'
 
-class UsernameFormView extends Marionette.ItemView
+class UsernameFormView extends Marionette.View
   template: require 'templates/usernameform'
 
   className: 'username-form-view'

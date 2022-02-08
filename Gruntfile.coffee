@@ -9,8 +9,8 @@ module.exports = (grunt)=>
       main:
         nonull:true
         expand: true
-        flatten: true
-        src: 'src/server/*'
+        cwd: 'src/server'
+        src: '**/*'
         dest: 'build/server'
     webpack:
       options:
@@ -22,21 +22,24 @@ module.exports = (grunt)=>
         script: 'build/server/index.js'
     concurrent:
       target:
-        tasks: ['webpack', 'nodemon', 'open', 'watch']
+        tasks: ['nodemon', 'open', 'watch']
         options:
           logConcurrentOutput: true
     watch:
       server:
-        files: ['src/**/*.*', 'build/**/*.*', 'Gruntfile.coffee']
-        tasks: ['clean', 'copy', 'webpack']
+        files: ['src/server/**/*']
+        tasks: ['copy']
+      public:
+        files: ['src/public/**/*']
+        tasks: ['webpack']
+      build:
+        files: ['build/**/*']
         options:
-          reload: true
           livereload: 12345
     open :
-     dev :
-       path: 'http://127.0.0.1:3000'
-       app: 'Google Chrome'
+      dev :
+        path: 'http://127.0.0.1:3000'
 
   require('load-grunt-tasks')(grunt)
 
-  grunt.registerTask 'default', ['clean', 'copy', 'concurrent:target']
+  grunt.registerTask 'default', ['clean', 'copy', 'webpack', 'concurrent:target']

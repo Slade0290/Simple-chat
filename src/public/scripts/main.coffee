@@ -1,4 +1,4 @@
-import '../css/style.scss'
+import '../css/main.scss'
 import Marionette from 'backbone.marionette'
 import Backbone from 'backbone'
 import UsernameFormView from 'views/usernameform'
@@ -17,6 +17,6 @@ app = new Marionette.Application
         username: username
         socket: socket
       @showView chatView
-    this.showView usernameform
+    @showView usernameform
 
 app.start()

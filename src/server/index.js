@@ -1,5 +1,5 @@
-var App;
+var App
 
-require('coffeescript/register');
+require('coffeescript/register')
 
-App = require('./main');
+App = require('./main')

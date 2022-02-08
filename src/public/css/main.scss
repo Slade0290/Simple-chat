@@ -20,21 +20,56 @@ html, body {
 				background-position: 0% 50%;
 		}
 }
-
+.home-body {
+  section {
+    margin: 5rem 0 5rem 0;
+    .aboutus-description {
+      background-color: rgba(0,0,0,0.4);
+      margin: 0 5rem 0 5rem;
+      p {
+        text-align: justify;
+        padding: 2rem;
+      }
+    }
+  }
+}
+.home-header {
+  color: white;
+  background-color: rgba(0,0,0,0.6);
+  box-shadow: .3rem .3rem 1rem .3rem rgba(0,0,0,0.4);
+  padding: 1.5rem;
+}
+.home-button {
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  color: steelblue;
+  background-color: rgba(0,0,0,0.4);
+  padding: 1.5rem;
+  text-transform: uppercase;
+  width: 10rem;
+  margin: 0 auto;
+  border-radius: .5rem;
+  transition: .5s;
+  box-shadow: 0 0 .5rem .2rem rgba(256,256,256,0.5);
+  &:hover {
+    color: white;
+    background-color: SteelBlue;
+  }
+}
 .title, .subtitle{
   text-align: center;
 }
 .tech-list {
-  display: flex;
+  margin: 0 10% 0 10%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   justify-content: center;
-  flex-wrap: wrap;
-  margin: 2rem 3rem 3rem 3rem;
-  gap: .2rem;
-  padding: 0;
+  gap: .5rem;
     a {
-    width: 15vw;
+    padding: 2.5rem;
     text-decoration: none;
-    padding: .5rem 0;
     background-color: rgba(0,0,0,0.4);
     text-align: center;
     transition: .5s;

@@ -3,93 +3,51 @@ html, body {
     margin: 0;
     display: flex;
     flex-direction: column;
-		background: linear-gradient(45deg, rgba(64,65,68,1) 15%, rgba(78,87,129,1) 33%, rgba(71,76,101,1) 50%, rgba(94,106,154,1) 68%, rgba(85,86,91,1) 85%);
-		background-size: 400% 400%;
-		animation: gradient 30s ease infinite;
+    font-family: monospace;
+    background-color: rgb(51,51,51);
     color: white;
 }
-
-@keyframes gradient {
-		0% {
-				background-position: 0% 50%;
-		}
-		50% {
-				background-position: 100% 50%;
-		}
-		100% {
-				background-position: 0% 50%;
-		}
-}
-.home-body {
-  section {
-    margin: 5rem 0 5rem 0;
-    .aboutus-description {
-      background-color: rgba(0,0,0,0.4);
-      margin: 0 5rem 0 5rem;
-      p {
-        text-align: justify;
-        padding: 2rem;
-      }
-    }
-  }
-}
-.home-header {
-  color: white;
-  background-color: rgba(0,0,0,0.6);
-  box-shadow: .3rem .3rem 1rem .3rem rgba(0,0,0,0.4);
-  padding: 1.5rem;
-}
-.home-button {
-  text-decoration: none;
-  text-align: center;
-  display: block;
-  color: steelblue;
-  background-color: rgba(0,0,0,0.4);
-  padding: 1.5rem;
-  text-transform: uppercase;
-  width: 10rem;
-  margin: 0 auto;
-  border-radius: .5rem;
-  transition: .5s;
-  box-shadow: 0 0 .5rem .2rem rgba(256,256,256,0.5);
-  &:hover {
-    color: white;
-    background-color: SteelBlue;
-  }
-}
-.title, .subtitle{
-  text-align: center;
-}
-.tech-list {
-  margin: 0 10% 0 10%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  justify-content: center;
-  gap: .5rem;
-    a {
-    padding: 2.5rem;
-    text-decoration: none;
-    background-color: rgba(0,0,0,0.4);
-    text-align: center;
-    transition: .5s;
-    color: white;
-    cursor: pointer;
-    line-height: 1.5rem;
-      &:hover {
-        background-color: SteelBlue;
-        color: white;
-      }
-    }
-    .integrate-tech {
-      color: forestgreen;
-    }
-}
-#main-container {
+.loginView {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  .create-account-section {
+    line-height: 4.5em;
+    .create-account-url {
+      color: rgb(100,100,100);
+      text-decoration: none;
+    }
+  }
+}
+.login-body {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    .forgotten-password {
+      color: rgb(100,100,100);
+      text-decoration: none;
+    }
+  }
+}
+.login-footer {
+  margin: 1rem;
+  .tech {
+    color: rgb(100,100,100);
+    text-decoration: none;
+  }
+}
+#main-container {
+  height: 100%;
 }
 .chatView {
   border: 1px solid black;
@@ -137,11 +95,4 @@ html, body {
       flex: 1 1 auto;
     }
   }
-}
-
-.footer {
-	color:white;
-  text-align: center;
-  margin: 4rem;
-  font-style: italic;
 }

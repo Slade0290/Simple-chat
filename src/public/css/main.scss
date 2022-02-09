@@ -13,9 +13,21 @@ html, body {
   flex-direction: column;
   flex: 1;
 }
-.login-header {
+.registerView {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.header {
   display: flex;
   justify-content: space-between;
+  .title {
+    #title-url {
+      text-decoration: none;
+      color: white;
+    }
+  }
   .create-account-section {
     line-height: 4.5em;
     .create-account-url {
@@ -39,7 +51,22 @@ html, body {
     }
   }
 }
-.login-footer {
+.register-body {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    .forgotten-password {
+      color: rgb(100,100,100);
+      text-decoration: none;
+    }
+  }
+}
+.footer {
   margin: 1rem;
   .tech {
     color: rgb(100,100,100);

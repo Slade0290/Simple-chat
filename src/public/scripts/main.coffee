@@ -4,6 +4,7 @@ import Backbone from 'backbone'
 import UsernameFormView from 'views/usernameform'
 import ProfileView from 'views/profile'
 import LoginView from 'views/login'
+import RegisterView from 'views/register'
 import ChatView from 'views/chat'
 import io from 'socket.io-client'
 
@@ -11,8 +12,10 @@ app = new Marionette.Application
   region: '#main-container'
   onStart: ()->
     socket = io()
-    loginView = new LoginView
-    @showView loginView
+    # loginView = new LoginView
+    # @showView loginView
+    registerView = new RegisterView
+    @showView registerView
     # profileView = new ProfileView
     # @showView profileView
     # usernameform = new UsernameFormView

@@ -7,13 +7,7 @@ html, body {
     background-color: rgb(51,51,51);
     color: white;
 }
-.loginView {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.registerView {
+.formView {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -36,22 +30,7 @@ html, body {
     }
   }
 }
-.login-body {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  form {
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
-    .forgotten-password {
-      color: rgb(100,100,100);
-      text-decoration: none;
-    }
-  }
-}
-.register-body {
+.form-body {
   display: flex;
   align-items: center;
   flex: 1;

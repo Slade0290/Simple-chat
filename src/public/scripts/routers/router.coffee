@@ -3,6 +3,7 @@ import RegisterView from 'views/register'
 import LoginView from 'views/login'
 import ProfileView from 'views/profile'
 import ChatView from 'views/chat'
+import io from 'socket.io-client'
 
 export default class AppRouter extends Backbone.Router
   routes:
@@ -12,6 +13,7 @@ export default class AppRouter extends Backbone.Router
     'chat': 'showChatView'
 
   initialize: (@app)->
+    @socket = io()
 
   showLogin: ->
     loginView = new LoginView
@@ -27,4 +29,6 @@ export default class AppRouter extends Backbone.Router
 
   showChatView: ->
     chatView = new ChatView
+      collection: new Backbone.Collection()
+      socket: @socket
     @app.showView chatView

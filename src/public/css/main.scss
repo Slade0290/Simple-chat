@@ -1,104 +1,104 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    font-family: monospace;
-    background-color: rgb(51,51,51);
-    color: white;
-}
-.mainView {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.header {
-  display: flex;
-  justify-content: space-between;
-  .title {
-    #title-url {
-      text-decoration: none;
-      color: white;
-    }
-  }
-  .create-account-section {
-    line-height: 4.5em;
-    .create-account-url {
-      color: rgb(100,100,100);
-      text-decoration: none;
-    }
-  }
-}
-.body {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  .body-container {
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
-    .forgotten-password {
-      color: rgb(100,100,100);
-      text-decoration: none;
-    }
-  }
-}
-.footer {
-  margin: 1rem;
-  .tech {
-    color: rgb(100,100,100);
-    text-decoration: none;
-  }
-}
-#main-container {
+html {
+  background-color: rgb(51,51,51);
+  color: white;
   height: 100%;
-}
-.chatView {
-  border: 1px solid black;
-  width: 50vw;
-	display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-  flex: 1;
-}
-#msg-container {
-  overflow: auto;
-  flex: 1;
-  background-color: rgba(255,255,255,0.15);
-  position: relative;
-  #messages {
+  font-family: monospace;
+  display: flex;
+  body {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    min-height: 100%;
-    width: 94%;
-    gap: .5rem;
-    padding-left: 0.3rem;
-    position: absolute;
-  }
-}
-.input-area {
-  display: flex;
-  border: 2px solid lightgrey;
-  height:2rem;
-  bottom: 0;
-  width: 99%;
-  #text-message {
-    flex-grow: 1;
-  }
-}
-.username-form-view {
-	background-color: rgba(255,255,255,0.15);
-	padding: 5vw 10vw 7vw 10vw;
-	p {
-    text-align: center;
-  }
-  form {
-    display: flex;
-    #usernameInput {
-      flex: 1 1 auto;
+    flex: 1;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      .title {
+        #title-url {
+          text-decoration: none;
+          color: white;
+        }
+      }
+      .create-account-section {
+        line-height: 4.5em;
+        .create-account-url {
+          color: rgb(100,100,100);
+          text-decoration: none;
+        }
+      }
+    }
+    #main-container {
+      margin: 0 auto;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      .formView {
+        display: flex;
+        flex: 1;
+        .form-container {
+          display: flex;
+          flex-direction: column;
+          row-gap: 1rem;
+          .forgotten-password {
+            color: rgb(100,100,100);
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    .footer {
+      margin: 1rem;
+      .tech {
+        color: rgb(100,100,100);
+        text-decoration: none;
+      }
     }
   }
 }
+// .chatView {
+//   border: 1px solid black;
+//   width: 50vw;
+// 	display: flex;
+//   justify-content: flex-end;
+//   flex-direction: column;
+//   flex: 1;
+// }
+// #msg-container {
+//   overflow: auto;
+//   flex: 1;
+//   background-color: rgba(255,255,255,0.15);
+//   position: relative;
+//   #messages {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: flex-end;
+//     min-height: 100%;
+//     width: 94%;
+//     gap: .5rem;
+//     padding-left: 0.3rem;
+//     position: absolute;
+//   }
+// }
+// .input-area {
+//   display: flex;
+//   border: 2px solid lightgrey;
+//   height:2rem;
+//   bottom: 0;
+//   width: 99%;
+//   #text-message {
+//     flex-grow: 1;
+//   }
+// }
+// .username-form-view {
+// 	background-color: rgba(255,255,255,0.15);
+// 	padding: 5vw 10vw 7vw 10vw;
+// 	p {
+//     text-align: center;
+//   }
+//   form {
+//     display: flex;
+//     #usernameInput {
+//       flex: 1 1 auto;
+//     }
+//   }
+// }

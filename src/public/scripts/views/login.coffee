@@ -4,7 +4,7 @@ debug = require('debug')('chat:views:login')
 export default class LoginView extends Marionette.View
   template: require 'templates/login'
 
-  className: 'loginView formView'
+  className: 'loginView mainView'
 
   ui:
     username: '#username'

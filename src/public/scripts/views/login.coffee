@@ -1,5 +1,6 @@
 Marionette = require 'backbone.marionette'
 debug = require('debug')('chat:views:login')
+bcrypt = require('bcryptjs')
 
 export default class LoginView extends Marionette.View
   template: require 'templates/login'
@@ -7,7 +8,7 @@ export default class LoginView extends Marionette.View
   className: 'loginView formView'
 
   ui:
-    username: '#username'
+    email: '#email'
     password: '#password'
     button: '#button'
 
@@ -15,12 +16,17 @@ export default class LoginView extends Marionette.View
     'submit form': 'connectToAccount'
 
   connectToAccount: ()->
-    console.log(@ui.username)
+    console.log(@ui.email)
     console.log(@ui.password)
     console.log(@ui.button)
+    salt = bcrypt.genSaltSync 10
+    hash = bcrypt.hashSync @ui.password.val(), salt
+    # Get email & password from db
+    emaildb = "test"
+    passworddb = "test"
+    if bcrypt.compareSync(passworddb, hash) && @ui.email.val() is emaildb
+      console.log 'change page'
+      # if ok add session information on server and in the cookie and change page to chat
+    else
+      console.log 'err wrong email or password'
     return false
-    # TODO:
-    # Hash password with salt
-    # Send username and password hashed to db and check if user exist and if password hash is ok
-    # if ok add session information on server and in the cookie and change page to chat
-    # if nok show red message 'wrong username or password and do nothing'

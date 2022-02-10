@@ -8,6 +8,7 @@
     "backbone.babysitter": "^1.0.0",
     "backbone.marionette": "^4.1.2",
     "backbone.wreqr": "^1.4.0",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.2",
     "grunt": "^1.4.1",
     "handlebars": "^4.7.7",
@@ -18,7 +19,6 @@
     "underscore-template-loader": "^1.1.0"
   },
   "devDependencies": {
-    "bcrypt": "^5.0.1",
     "coffee-loader": "^3.0.0",
     "coffeescript": "^2.6.1",
     "css-loader": "^6.5.1",

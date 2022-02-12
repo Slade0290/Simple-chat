@@ -1,5 +1,5 @@
 Backbone = require 'backbone'
-import RegisterView from 'views/register'
+import SignupView from 'views/signup'
 import LoginView from 'views/login'
 import ProfileView from 'views/profile'
 import ChatView from 'views/chat'
@@ -8,7 +8,7 @@ import io from 'socket.io-client'
 export default class AppRouter extends Backbone.Router
   routes:
     '': 'showLogin'
-    'register': 'showRegisterView'
+    'signup': 'showSignupView'
     'profile': 'showProfileView'
     'chat': 'showChatView'
 
@@ -17,11 +17,13 @@ export default class AppRouter extends Backbone.Router
 
   showLogin: ->
     loginView = new LoginView
+      socket: @socket
     @app.showView loginView
 
-  showRegisterView: ->
-    registerView = new RegisterView
-    @app.showView registerView
+  showSignupView: ->
+    signupView = new SignupView
+      socket: @socket
+    @app.showView signupView
 
   showProfileView: ->
     profileView = new ProfileView

@@ -24,6 +24,11 @@ export default class SignupView extends Marionette.View
       @app.socket.emit 'signup', @ui.email.val(), @ui.password1.val()
     else
       console.log 'password mismatch'
+    return false
+
 
   connectToAccount: (status, msg)->
-    console.log 'status, msg', status, msg
+    if status is 200
+      window.location.replace "http://127.0.0.1:3000/#chat"
+    else
+      console.log 'status, msg', status, msg

@@ -20,6 +20,10 @@ export default class LoginView extends Marionette.View
 
   checkAccount: ()->
     @app.socket.emit 'login', @ui.email.val(), @ui.password.val()
+    return false
 
   connectToAccount: (status, msg)->
-    console.log 'status, msg', status, msg
+    if status is 200
+      window.location.replace "http://127.0.0.1:3000/#chat"
+    else
+      console.log 'status, msg', status, msg

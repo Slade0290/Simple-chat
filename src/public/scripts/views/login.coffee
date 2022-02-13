@@ -12,13 +12,14 @@ export default class LoginView extends Marionette.View
     button: '#button'
 
   events:
-    'submit form': 'connectToAccount'
+    'submit form': 'checkAccount'
 
   initialize: (@app)->
-    console.log 'initialize'
+    @app.socket.on 'login:response', (status, msg)=>
+      @connectToAccount status, msg
 
-  connectToAccount: ()->
-    console.log 'in connectToAccount'
-    res = @app.socket.emit 'login', @ui.email.val(), @ui.password.val()
-    console.log 'res', res
-    return false
+  checkAccount: ()->
+    @app.socket.emit 'login', @ui.email.val(), @ui.password.val()
+
+  connectToAccount: (status, msg)->
+    console.log 'status, msg', status, msg

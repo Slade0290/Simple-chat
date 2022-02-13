@@ -1,6 +1,5 @@
 Marionette = require 'backbone.marionette'
 debug = require('debug')('chat:views:signup')
-bcrypt = require('bcryptjs')
 
 export default class SignupView extends Marionette.View
   template: require 'templates/signup'
@@ -17,13 +16,14 @@ export default class SignupView extends Marionette.View
     'submit form': 'createAccount'
 
   initialize: (@app)->
-    console.log 'initialize signup'
+    @app.socket.on 'signup:response', (status, msg)=>
+      @connectToAccount status, msg
 
   createAccount: ()->
-    console.log 'in createAccount'
     if @ui.password1.val() is @ui.password2.val()
-      res = @app.socket.emit 'signup', @ui.email.val(), @ui.password1.val()
-      console.log 'res', res
+      @app.socket.emit 'signup', @ui.email.val(), @ui.password1.val()
     else
       console.log 'password mismatch'
-    return false
+
+  connectToAccount: (status, msg)->
+    console.log 'status, msg', status, msg

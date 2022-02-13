@@ -5,16 +5,13 @@ io = require('socket.io') http
 path = require 'path'
 bcrypt = require 'bcrypt'
 debug = require('debug')('chat:server')
+database = require './database'
 
 app.use(express.static(path.join(__dirname,'../public')))
 
 io.on 'connection', (socket)->
-  # console.log 'main.coffee - on connection'
-
   socket.on 'send:chat:message', (username, msg, date)->
-    console.log 'before emit'
     io.emit 'emit:chat:message', username, msg, date
-    console.log 'after emit'
 
   socket.on 'set:username', (username) ->
     io.emit 'admin:info:connected', username
@@ -22,34 +19,26 @@ io.on 'connection', (socket)->
       io.emit 'admin:info:disconnected', username
 
   socket.on 'login', (email, password)->
-    console.log 'in login'
-    # Get email & password from db
-    emaildb = "test"
-    passworddb = "test"
-    if bcrypt.compareSync(password, passworddb) && @ui.email.val() is emaildb
-      console.log 'change page'
-      # if ok add session information on server and in the cookie and change page to chat
-      # check code http to return
-      return true
+    userdb = await database.getUser(email)
+    if userdb isnt undefined
+      if bcrypt.compareSync(password, userdb.password) && email is userdb.email
+        io.emit 'login:response', 200, 'change page'
+        # if ok add session information on server and in the cookie and change page to chat
+      else
+        io.emit 'login:response', 401, 'wrong email or password'
     else
-      console.log 'err wrong email or password'
-      # check code http to return
-      return false
+      io.emit 'login:response', 401, 'email doesn\'t exist'
 
   socket.on 'signup', (email, password)->
-    console.log 'in signup'
-    # Get email from db
-    emaildb = "test"
-    if email is emaildb
-      console.log 'email already used'
-      return false
-    # Send username and password hashed to db
-    # if ok add session information on server and in the cookie and change page to chat
-    salt = bcrypt.genSaltSync 10
-    console.log 'salt', salt
-    hash = bcrypt.hashSync password, salt
-    console.log 'hash', hash
-    return true
+    userdb = await database.getUser(email)
+    if userdb is undefined
+      salt = bcrypt.genSaltSync 10
+      hash = bcrypt.hashSync password, salt
+      createUserRes = database.createUser(email, hash)
+      # if ok add session information on server and in the cookie and change page to chat
+      io.emit 'signup:response', 200, 'change page'
+    else
+      io.emit 'signup:response', 401, 'email already used'
 
 http.listen 3000, ()->
   console.log "Server running on 3000"

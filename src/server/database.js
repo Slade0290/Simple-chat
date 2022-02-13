@@ -8,27 +8,39 @@ function createTable() {
 function createUser(email, password, username, signup_date, avatar) {
   let stmt = db.prepare("INSERT INTO users(email, password, username, signup_date, avatar) VALUES(?,?,?,?,?)")
 
-  stmt.run(email, password, username, signup_date, avatar)
-  stmt.finalize()
+  let res = stmt.run(email, password, username, signup_date, avatar)
+  let finalRes = stmt.finalize()
 }
 
 function getUser(email) {
-  let stmt = db.prepare("SELECT * FROM users WHERE email = ?")
-
-  let res = stmt.run(email)
-  console.log(res);
-  stmt.finalize()
-  return res
+  return new Promise((resolve, reject) => {
+    let query = `SELECT * FROM users WHERE email = ?`
+    let res = db.get(query, email, (err, row) => {
+      if(err) reject(err.message);
+      resolve(row ? row : undefined)
+    })
+  })
 }
 
-// User model :
-// Email
-// Password
-// Username
-// Member since (date)
-// Avatar
+function getAllUsers() {
+  const query = "SELECT * FROM users"
+  let res = db.all(query, [], (err, rows) => {
+    if(err) return console.error(err.message)
 
-// db has to be closed between each operation ?
+    rows.forEach((row) => {
+      console.log(row);
+    });
+  })
+}
+
+function deleteUser(email) {
+  const query = `DELETE FROM users WHERE email = ?`
+  db.run(query, email, (err, row) => {
+    if (err) return console.error(err.message);
+    console.log(`Row(s) deleted`);
+  });
+}
+
 function closeDb() {
   db.close(err => {
     if(err) return console.error(err.message)
@@ -37,7 +49,10 @@ function closeDb() {
 }
 
 module.exports = {
+  createTable,
   createUser,
   getUser,
+  deleteUser,
+  getAllUsers,
   closeDb
 }

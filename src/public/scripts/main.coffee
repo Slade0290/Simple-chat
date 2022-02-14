@@ -8,10 +8,6 @@ import io from 'socket.io-client'
 app = new Marionette.Application
   region: '#main-container'
   onStart: (options)->
-    loginView = new LoginView
-      socket: io()
-    @showView loginView
     router = new AppRouter @
     Backbone.history.start()
-
 app.start()

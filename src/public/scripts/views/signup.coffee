@@ -13,22 +13,18 @@ export default class SignupView extends Marionette.View
     button: '#button'
 
   events:
-    'submit form': 'createAccount'
+    'submit form': 'submitNewCredential'
 
-  initialize: (@app)->
-    @app.socket.on 'signup:response', (status, msg)=>
-      @connectToAccount status, msg
-
-  createAccount: ()->
+  submitNewCredential: ()->
     if @ui.password1.val() is @ui.password2.val()
-      @app.socket.emit 'signup', @ui.email.val(), @ui.password1.val()
+      @trigger 'submit:new:credential', @ui.email.val(), @ui.password1.val(), @connectToAccount
     else
-      console.log 'password mismatch'
+      console.log 'show password mismatch'
     return false
 
 
-  connectToAccount: (status, msg)->
-    if status is 200
-      window.location.replace "http://127.0.0.1:3000/#chat"
+  connectToAccount: (err)->
+    if !err
+      window.location.replace "http://127.0.0.1:3000/#chat" # check that
     else
-      console.log 'status, msg', status, msg
+      console.log 'show err', err

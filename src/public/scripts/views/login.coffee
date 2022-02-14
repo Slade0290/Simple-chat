@@ -12,18 +12,14 @@ export default class LoginView extends Marionette.View
     button: '#button'
 
   events:
-    'submit form': 'checkAccount'
+    'submit form': 'submitLoginCredential'
 
-  initialize: (@app)->
-    @app.socket.on 'login:response', (status, msg)=>
-      @connectToAccount status, msg
-
-  checkAccount: ()->
-    @app.socket.emit 'login', @ui.email.val(), @ui.password.val()
+  submitLoginCredential: ()->
+    @trigger 'submit:login:credential', @ui.email.val(), @ui.password.val(), @connectToAccount
     return false
 
-  connectToAccount: (status, msg)->
-    if status is 200
-      window.location.replace "http://127.0.0.1:3000/#chat"
+  connectToAccount: (err)->
+    if !err
+      window.location.replace "http://127.0.0.1:3000/#chat" # check that
     else
-      console.log 'status, msg', status, msg
+      console.log 'show err', err

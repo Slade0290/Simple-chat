@@ -12,12 +12,15 @@ function createUser(email, password, username, signup_date, avatar) {
   let finalRes = stmt.finalize()
 }
 
-function getUser(email) {
+async function getUser(email) {
   return new Promise((resolve, reject) => {
-    let query = `SELECT * FROM users WHERE email = ?`
-    let res = db.get(query, email, (err, row) => {
-      if(err) reject(err.message);
-      resolve(row ? row : undefined)
+    const query = `SELECT * FROM users WHERE email = ?`
+    const res = db.get(query, email, (err, row) => {
+      if(err) {
+        reject(err);
+      } else {
+        resolve(row ? row : undefined)
+      }
     })
   })
 }

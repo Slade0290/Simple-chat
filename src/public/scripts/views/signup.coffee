@@ -17,7 +17,7 @@ export default class SignupView extends Marionette.View
 
   submitNewCredential: ()->
     if @ui.password1.val() is @ui.password2.val()
-      @trigger 'submit:new:credential', @ui.email.val(), @ui.password1.val(), @connectToAccount
+      @trigger 'socket:emit', 'signup', @ui.email.val(), @ui.password1.val(), @connectToAccount
     else
       console.log 'show password mismatch'
     return false
@@ -25,6 +25,6 @@ export default class SignupView extends Marionette.View
 
   connectToAccount: (err)->
     if !err
-      window.location.replace "http://127.0.0.1:3000/#chat" # check that
+      window.location.hash = "#chat"
     else
       console.log 'show err', err

@@ -15,11 +15,11 @@ export default class LoginView extends Marionette.View
     'submit form': 'submitLoginCredential'
 
   submitLoginCredential: ()->
-    @trigger 'submit:login:credential', @ui.email.val(), @ui.password.val(), @connectToAccount
+    @trigger 'socket:emit', 'login', @ui.email.val(), @ui.password.val(), @connectToAccount
     return false
 
   connectToAccount: (err)->
     if !err
-      window.location.replace "http://127.0.0.1:3000/#chat" # check that
+      window.location.hash = "#chat"
     else
-      console.log 'show err', err
+    console.log 'show err', err

@@ -17,15 +17,14 @@ export default class AppRouter extends Backbone.Router
 
   showLogin: ->
     loginView = new LoginView
-    loginView.on 'submit:login:credential', (email, password, callback)=>
-      @socket.emit 'login',email, password, callback
+    loginView.on 'socket:emit', (message, args...)=>
+      @socket.emit message, args... # add this in every showview
     @app.showView loginView
-    # use router show view & listener
 
   showSignupView: ->
     signupView = new SignupView
-    signupView.on 'submit:new:credential', (email, password, callback)=>
-      @socket.emit 'signup', email, password1, callback
+    signupView.on 'socket:emit', (message, args...)=>
+      @socket.emit message, args... # add this in every showview
     @app.showView signupView
 
   showProfileView: ->

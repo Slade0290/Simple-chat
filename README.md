@@ -13,7 +13,4 @@ Using
 - Lodash
 
 To run the server :
-$ npm run devStart
-
-To build the project :
-$ npm run dev
+$ grunt

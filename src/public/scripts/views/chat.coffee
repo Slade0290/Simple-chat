@@ -45,12 +45,11 @@ export default class ChatView extends Marionette.CollectionView
         @options.socket.emit('send:chat:message', textMsg, date)
         console.log 'End sendChatMessage'
     catch e
-      console.log 'in catch error'
       console.error e
     return false
 
   showMsg: (_username, _textMsg, _date)=>
-    console.log 'Show msg'
+    console.log 'Show msg', _username, _textMsg, _date
     @collection.add({
       username: _username,
       text: _textMsg,

@@ -12,5 +12,5 @@ Using
 - Grunt
 - Lodash
 
-To run the server :
+To run the app :
 $ grunt

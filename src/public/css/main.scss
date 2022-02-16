@@ -45,50 +45,50 @@ html {
           }
         }
       }
+      .chatView {
+        background-color: rgba(0,0,0,0.4);
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        align-self: stretch;
+        flex: 1;
+        section {
+          border: 1px solid black;
+        }
+        .list-of-conversation {
+          .item-conversation {
+            padding: 2rem;
+            background-color: rgba(50,50,50,0.5);
+            transition: 0.5s;
+            cursor: pointer;
+            &:hover {
+              background-color: rgba(50,50,50,0.8);
+            }
+          }
+        }
+        .conversation-container {
+          display: flex;
+          flex-direction: column;
+          #messages {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+          }
+          .input-area {
+            display: flex;
+            align-items: flex-end;
+            #text-message {
+              flex: 1;
+            }
+          }
+        }
+      }
     }
     .footer {
       margin: 1rem;
       .tech {
         color: rgb(100,100,100);
         text-decoration: none;
-      }
-    }
-  }
-}
-.chatView {
-  background-color: rgba(0,0,0,0.4);
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  align-self: stretch;
-  flex: 1;
-  section {
-    border: 1px solid black;
-  }
-  .list-of-conversation {
-    .item-conversation {
-      padding: 2rem;
-      background-color: rgba(50,50,50,0.5);
-      transition: 0.5s;
-      cursor: pointer;
-      &:hover {
-        background-color: rgba(50,50,50,0.8);
-      }
-    }
-  }
-  .conversation-container {
-    display: flex;
-    flex-direction: column;
-    #messages {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-    .input-area {
-      display: flex;
-      align-items: flex-end;
-      #text-message {
-        flex: 1;
       }
     }
   }

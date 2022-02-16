@@ -35,4 +35,6 @@ export default class AppRouter extends Backbone.Router
     chatView = new ChatView
       collection: new Backbone.Collection()
       socket: @socket
+    chatView.on 'socket:emit', (message, args...)=>
+      @socket.emit message, args... # add this in every showview
     @app.showView chatView

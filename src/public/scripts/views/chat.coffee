@@ -38,22 +38,18 @@ export default class ChatView extends Marionette.CollectionView
   sendChatMessage: ()->
     try
       textMsg = @ui.inputtext.val()
-      console.log 'in sendChatMessage', @ui.inputtext.val()
       username = @options.username
       if textMsg
         date = moment().format('MMMM Do YYYY, h:mm:ss a')
-        @options.socket.emit('send:chat:message', textMsg, date)
-        console.log 'End sendChatMessage'
+        @trigger 'socket:emit', 'send:chat:message', textMsg, date
     catch e
       console.error e
     return false
 
   showMsg: (_username, _textMsg, _date)=>
-    console.log 'Show msg', _username, _textMsg, _date
     @collection.add({
       username: _username,
       text: _textMsg,
       date: _date
     })
     @ui.inputtext.val('')
-    console.log 'End - Show msg'

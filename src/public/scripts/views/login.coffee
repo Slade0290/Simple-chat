@@ -18,8 +18,9 @@ export default class LoginView extends Marionette.View
     @trigger 'socket:emit', 'login', @ui.email.val(), @ui.password.val(), @connectToAccount
     return false
 
-  connectToAccount: (err)->
+  connectToAccount: (err)=>
     if !err
+      @trigger 'socket:emit', 'user:connected'
       window.location.hash = "#chat"
     else
     console.log 'show err', err

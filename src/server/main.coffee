@@ -11,11 +11,12 @@ app.use(express.static(path.join(__dirname,'../public')))
 
 io.on 'connection', (socket)->
   # TODO : make every call async
+  userdb = {}
 
   # SIGNUP
   socket.on 'signup', (email, password, callback)->
     userdb = await database.getUser(email)
-    if userdb is undefined
+    if userdb
       salt = bcrypt.genSaltSync 10
       hash = bcrypt.hashSync password, salt
       createUserRes = database.createUser(email, hash)
@@ -32,19 +33,20 @@ io.on 'connection', (socket)->
       callback null
       # if ok add session information on server and in the cookie
       # use socket instead of session
-
-      # CHAT
-      socket.on 'send:chat:message', (msg, date)->
-        console.log userdb
-        io.emit 'emit:chat:message', userdb.email, msg, date
-
-      # ADMIN INFO
-      socket.on 'set:username', ()->
-        io.emit 'admin:info:connected', userdb.email
-        socket.on 'disconnect', () ->
-          io.emit 'admin:info:disconnected', userdb.email
     else
       callback 'wrong email or password'
+
+  # ADMIN INFO
+  socket.on 'user:connected', ()->
+    console.log 'in user:connected socket:on'
+    io.emit 'admin:info:connected', userdb.email
+    socket.on 'user:disconnect', () ->
+      io.emit 'admin:info:disconnected', userdb.email
+
+  # CHAT
+  socket.on 'send:chat:message', (msg, date)->
+    console.log 'in send:chat:message socket:on'
+    io.emit 'emit:chat:message', userdb.email, msg, date
 
 http.listen 3000, ()->
   console.log "Server running on 3000"

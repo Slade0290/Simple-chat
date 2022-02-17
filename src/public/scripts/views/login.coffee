@@ -20,7 +20,6 @@ export default class LoginView extends Marionette.View
 
   connectToAccount: (err)=>
     if !err
-      @trigger 'socket:emit', 'user:connected'
       window.location.hash = "#chat"
     else
     console.log 'show err', err

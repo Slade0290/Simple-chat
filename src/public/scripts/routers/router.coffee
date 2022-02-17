@@ -1,4 +1,5 @@
 Backbone = require 'backbone'
+import MainView from 'views/main'
 import SignupView from 'views/signup'
 import LoginView from 'views/login'
 import ProfileView from 'views/profile'
@@ -15,17 +16,20 @@ export default class AppRouter extends Backbone.Router
   initialize: (@app)->
     @socket = io()
 
+  showView: (childView)->
+    mainView = new MainView
+    childView.on 'socket:emit', (message, args...)=>
+      @socket.emit message, args...
+    mainView.showChildView('subRegion', childView)
+    @app.showView(mainView)
+
   showLogin: ->
     loginView = new LoginView
-    loginView.on 'socket:emit', (message, args...)=>
-      @socket.emit message, args... # add this in every showview
-    @app.showView loginView
+    @showView loginView
 
   showSignupView: ->
     signupView = new SignupView
-    signupView.on 'socket:emit', (message, args...)=>
-      @socket.emit message, args... # add this in every showview
-    @app.showView signupView
+    @showView signupView
 
   showProfileView: ->
     profileView = new ProfileView
@@ -35,6 +39,4 @@ export default class AppRouter extends Backbone.Router
     chatView = new ChatView
       collection: new Backbone.Collection()
       socket: @socket
-    chatView.on 'socket:emit', (message, args...)=>
-      @socket.emit message, args... # add this in every showview
-    @app.showView chatView
+    @showView chatView

@@ -8,20 +8,6 @@ function createTable() {
 function createUser(email, password, username, signup_date, avatar) {
   return new Promise((resolve, reject) => {
     console.log('in createUser');
-    // let stmt = db.prepare("INSERT INTO users(email, password, username, signup_date, avatar) VALUES(?,?,?,?,?)")
-    //
-    // let res = stmt.run(email, password, username, signup_date, avatar)
-    // let finalRes = stmt.finalize()
-    //
-    // const query = `SELECT * FROM users WHERE email = ?`
-    // const res = db.get(query, email, (err, row) => {
-    //   if(err) {
-    //     reject(err);
-    //   } else {
-    //     resolve(row ? row : undefined)
-    //   }
-    // })
-
     const query = `INSERT INTO users(email, password, username, signup_date, avatar) VALUES(?,?,?,?,?)`
     const res = db.run(query, email, password, username, signup_date, avatar, (err, row) => {
       if(err) {

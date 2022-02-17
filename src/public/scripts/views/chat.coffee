@@ -25,37 +25,31 @@ export default class ChatView extends Marionette.CollectionView
     'submit form': 'sendChatMessage'
 
   initialize: ()->
-    debug 'In initialize chatView'
-    @options.socket.on 'emit:chat:message', (username, msg, date)=>
-      @showMsg username, msg
+    @options.socket.on 'emit:chat:message', (username, message, date)=>
+      @showMessage username, message
 
     @options.socket.on 'admin:info:connected', (username)=>
-      @showMsg "Admin", "Please welcome #{username}"
+      @showMessage "Admin", "Please welcome #{username}"
 
     @options.socket.on 'admin:info:disconnected', (username)=>
-      @showMsg "Admin", "Say goodbye to #{username}"
-
-  onRender: ->
-    debug 'view rendered'
+      @showMessage "Admin", "Say goodbye to #{username}"
 
   sendChatMessage: ()->
     try
-      console.log 'in sendChatMessage', @ui.inputtext.val()
-      textMsg = @ui.inputtext.val()
+      textMessage = @ui.inputtext.val()
       @ui.inputtext.val('')
-      if textMsg
-        @trigger 'socket:emit', 'send:chat:message', textMsg
+      if textMessage
+        @trigger 'socket:emit', 'send:chat:message', textMessage
     catch e
       console.error e
     return false
 
-  showMsg: (_username, _textMsg)->
-    debug 'in showMsg', @ui.inputtext
+  showMessage: (_username, _textMessage)->
     unless @isRendered()
       await new Promise (resolve)=>
         @on 'render', resolve
     @collection.add({
       username: _username,
-      text: _textMsg,
+      text: _textMessage,
       date: moment().format('MMMM Do YYYY, h:mm:ss a')
     })

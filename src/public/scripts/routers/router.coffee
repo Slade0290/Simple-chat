@@ -11,7 +11,7 @@ import io from 'socket.io-client'
 
 export default class AppRouter extends Backbone.Router
   routes:
-    '': 'showLogin'
+    '': 'showLoginView'
     'signup': 'showSignupView'
     'profile': 'showProfileView'
     'chat': 'showChatView'
@@ -22,35 +22,47 @@ export default class AppRouter extends Backbone.Router
     console.log @socket
     @socket.on 'admin:info:connected', (user)=>
       @user = user
+      console.log 'in initialize router @user', @user
     @mainView = new LayoutView
     @app.showView(@mainView)
 
   showView: (childView, headerView)->
     console.log 'in showview @user', @user
     childView.on 'socket:emit', (message, args...)=>
+      console.log 'in socket emit router', message
       @socket.emit message, args...
     @mainView.showSubContainerView(childView)
     @mainView.showHeaderUserNavigation(headerView)
 
-  showLogin: ->
-    loginView = new LoginView
-    @showView loginView, new HeaderUserSignupView
+  showLoginView: ->
+    if @user
+      @showChatView()
+    else
+      loginView = new LoginView
+      @showView loginView, new HeaderUserSignupView
 
   showSignupView: ->
     signupView = new SignupView
     @showView signupView, new HeaderUserSignupView
 
   showProfileView: ->
-    profileView = new ProfileView
-    @showView profileView, new HeaderUserLoggedView
-      model: new Backbone.Model({currentUser: @user})
+    if @user
+      profileView = new ProfileView
+        model: new Backbone.Model({currentUser: @user})
+      @showView profileView, new HeaderUserLoggedView
+        model: new Backbone.Model({currentUser: @user})
+    else
+      @showLoginView()
 
   showChatView: ->
-    chatView = new ChatView
-      collection: new Backbone.Collection()
-      socket: @socket
-    @showView chatView, new HeaderUserLoggedView
-      model: new Backbone.Model({currentUser: @user})
+    if @user
+      chatView = new ChatView
+        collection: new Backbone.Collection()
+        socket: @socket
+      @showView chatView, new HeaderUserLoggedView
+        model: new Backbone.Model({currentUser: @user})
+    else
+      @showLoginView()
 
   showLogoutView: ->
     logoutView = new LogoutView

@@ -29,8 +29,8 @@ io.on 'connection', (socket)->
     currentUser = await currentUserModule.get(email)
     if currentUser and bcrypt.compareSync(password, currentUser.password)
       # ADMIN INFO
-      io.emit 'admin:info:connected', currentUser.email
-      socket.on 'disconnect', () ->
+      io.emit 'admin:info:connected', currentUser
+      socket.on 'disconnected', () ->
         io.emit 'admin:info:disconnected', currentUser.email
       callback()
     else

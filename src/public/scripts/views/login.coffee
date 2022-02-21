@@ -15,14 +15,17 @@ export default class LoginView extends Marionette.View
   events:
     'submit form': 'submitLoginCredential'
 
-  submitLoginCredential: ()->
-    Authentication.login @ui.email.val(), @ui.password.val()
-    # don't call connectToAccount and call another method in router to navigate to #chat if ok
+  submitLoginCredential: ()-> # handle in authentication
+    try
+      result = await Authentication.default.login @ui.email.val(), @ui.password.val()
+      if result
+        @connectToAccount() # emit event user login tell router to change view
+      else
+        console.log 'login fail'
+    catch error
+      console.error 'Error during authentication:',error
     return false
 
   connectToAccount: (err)=>
-    if !err
-      window.location.hash = "#chat" # send event to the router
-      # @trigger something #chat router etc..
-    else
+    if err
       console.error 'login failed:', err

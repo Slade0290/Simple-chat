@@ -2,20 +2,20 @@ debug = require('debug')('chat:lib:socket')
 import io from 'socket.io-client'
 socket = io()
 
-export onEvent = (message, args...)->
-  debug 'in onEvent'
+export default Socket =
 
-export emitSocket = (message, args...)->
-  return new Promise((resolve, reject) =>
-    debug 'in emitSocket message:', message
-    if !socket
-      reject('No socket connection.')
-    else
-      socket.emit(message, args..., (response) =>
-        if response.error
-          console.error response.error
-          reject response.error
+  on: (message, callback)->
+    socket.on message, callback
+
+  emit: (message, args...)->
+    return new Promise((resolve, reject)->
+      socket.emit(message, args..., (error, response)->
+        if error
+          console.error error
+          reject error
         else
-          resolve()
+          resolve(response)
       )
-  )
+    )
+
+# pratice promise callback etc..

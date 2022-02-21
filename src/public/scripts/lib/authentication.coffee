@@ -1,13 +1,13 @@
 debug = require('debug')('chat:lib:authentication')
-libSocket = require 'lib/socket'
-# event emitter
-# handle Socket
-export testDebug = ()->
-  debug 'test'
+Socket = require 'lib/socket'
 
-export login = (user, password)->
-  debug 'in login', user, password
-  await libSocket.emitSocket 'login', user, password
+export default Authentication =
 
-export logout = ()->
-  debug 'in logout'
+  login: (user, password)->
+    await Socket.default.emit 'login', user, password
+
+  logout: ()->
+    debug 'in logout'
+    await Socket.default.emit 'logout'
+
+  # singleton event emitter

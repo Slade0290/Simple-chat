@@ -1,4 +1,5 @@
-Marionette = require 'backbone.marionette'
+import Marionette from 'backbone.marionette'
+Authentication = require 'lib/authentication'
 debug = require('debug')('chat:views:login')
 
 export default class LoginView extends Marionette.View
@@ -15,11 +16,13 @@ export default class LoginView extends Marionette.View
     'submit form': 'submitLoginCredential'
 
   submitLoginCredential: ()->
-    @trigger 'socket:emit', 'login', @ui.email.val(), @ui.password.val(), @connectToAccount
+    Authentication.login @ui.email.val(), @ui.password.val()
+    # don't call connectToAccount and call another method in router to navigate to #chat if ok
     return false
 
   connectToAccount: (err)=>
     if !err
-      window.location.hash = "#chat"
+      window.location.hash = "#chat" # send event to the router
+      # @trigger something #chat router etc..
     else
-    console.log 'show err', err
+      console.error 'login failed:', err

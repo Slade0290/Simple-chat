@@ -6,37 +6,34 @@ path = require 'path'
 bcrypt = require 'bcrypt'
 debug = require('debug')('chat:server')
 database = require './database'
-currentUserModule = require './currentUser'
 
 app.use(express.static(path.join(__dirname,'../public')))
 
 io.on 'connection', (socket)->
   currentUser = null
 
-  # SIGNUP
   socket.on 'signup', (email, password, callback)->
-    currentUser = await currentUserModule.get(email)
+    currentUser = await database.getUser(email)
     if !currentUser
-      salt = bcrypt.genSaltSync 10
-      hash = bcrypt.hashSync password, salt
+      hash = bcrypt.hashSync password, 10
       createUserRes = await database.createUser(email, hash)
       callback()
     else
       callback 'email already used'
 
-  # LOGIN
-  socket.on 'login', (email, password, callback)->
-    currentUser = await currentUserModule.get(email)
+  socket.on 'login', (email, password)->
+    console.log 'server:', email, password
+    currentUser = await database.getUser(email)
     if currentUser and bcrypt.compareSync(password, currentUser.password)
-      # ADMIN INFO
-      io.emit 'admin:info:connected', currentUser
-      socket.on 'disconnected', () ->
-        io.emit 'admin:info:disconnected', currentUser.email
-      callback()
+      io.emit 'admin:info:login', currentUser
     else
       callback 'wrong email or password'
 
-  # CHAT
+  socket.on 'logout', () ->
+    if currentUser?
+      io.emit 'admin:info:logout', currentUser.email
+      currentUser = null
+
   socket.on 'send:chat:message', (msg, date)->
     if currentUser
       io.emit 'emit:chat:message', currentUser.email, msg, date

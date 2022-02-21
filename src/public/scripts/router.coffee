@@ -1,13 +1,15 @@
 import Backbone from 'backbone'
-import LayoutView from 'views/layout'
 import SignupView from 'views/signup'
 import LoginView from 'views/login'
 import ProfileView from 'views/profile'
 import ChatView from 'views/chat'
 import LogoutView from 'views/logout'
-import HeaderUserSignupView from 'views/headerusersignup'
-import HeaderUserLoggedView from 'views/headeruserlogged'
+import LayoutView from 'views/layout'
+import HeaderUserSignupView from 'views/layout/headerusersignup'
+import HeaderUserLoggedView from 'views/layout/headeruserlogged'
 import io from 'socket.io-client'
+libSocket = require 'lib/socket'
+debug = require('debug')('chat:router')
 
 export default class AppRouter extends Backbone.Router
   routes:
@@ -20,7 +22,7 @@ export default class AppRouter extends Backbone.Router
   initialize: (@app)->
     @socket = io()
     console.log @socket
-    @socket.on 'admin:info:connected', (user)=>
+    @socket.on 'admin:info:login', (user)=>
       @user = user
       console.log 'in initialize router @user', @user
     @mainView = new LayoutView
@@ -30,7 +32,7 @@ export default class AppRouter extends Backbone.Router
     console.log 'in showview @user', @user
     childView.on 'socket:emit', (message, args...)=>
       console.log 'in socket emit router', message
-      @socket.emit message, args...
+      await libSocket.emitSocket message, args...
     @mainView.showSubContainerView(childView)
     @mainView.showHeaderUserNavigation(headerView)
 
@@ -49,7 +51,7 @@ export default class AppRouter extends Backbone.Router
     if @user
       profileView = new ProfileView
         model: new Backbone.Model({currentUser: @user})
-      @showView profileView, new HeaderUserLoggedView
+      @showView profileView, new HeaderUserLoggedView # should not be that
         model: new Backbone.Model({currentUser: @user})
     else
       @showLoginView()
@@ -64,6 +66,8 @@ export default class AppRouter extends Backbone.Router
     else
       @showLoginView()
 
-  showLogoutView: ->
+  showLogoutView: -> # change to action
+    @user = null
+    @socket.emit 'user:logout'
     logoutView = new LogoutView
     @showView logoutView, new HeaderUserSignupView

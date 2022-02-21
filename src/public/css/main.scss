@@ -17,13 +17,16 @@ html {
         .header {
           display: flex;
           justify-content: space-between;
+					a {
+						color: white;
+					}
           .title {
             #title-url {
               text-decoration: none;
               color: white;
             }
           }
-          .create-account-section {
+          #header-user-navigation {
             line-height: 4.5em;
             .create-account-url {
               color: rgb(100,100,100);

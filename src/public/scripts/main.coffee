@@ -1,7 +1,7 @@
 import '../css/main.scss'
 import Marionette from 'backbone.marionette'
 import Backbone from 'backbone'
-import AppRouter from 'routers/router'
+import AppRouter from 'router'
 import LoginView from 'views/login'
 import io from 'socket.io-client'
 

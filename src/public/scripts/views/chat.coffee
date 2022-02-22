@@ -32,7 +32,7 @@ export default class ChatView extends Marionette.CollectionView
     Socket.default.on 'user:logged', (username)=>
       @showMessage "Admin", "Please welcome #{username}"
 
-    Socket.default.on 'admin:info:logout', (username)=>
+    Socket.default.on 'user:logout', (username)=>
       @showMessage "Admin", "Say goodbye to #{username}"
 
   sendChatMessage: ()->

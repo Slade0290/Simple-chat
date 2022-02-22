@@ -3,7 +3,6 @@ import SignupView from 'views/signup'
 import LoginView from 'views/login'
 import ProfileView from 'views/profile'
 import ChatView from 'views/chat'
-import LogoutView from 'views/logout'
 import LayoutView from 'views/layout'
 Socket = require 'lib/socket'
 debug = require('debug')('chat:router')
@@ -14,18 +13,21 @@ export default class AppRouter extends Backbone.Router
     'signup': 'showSignupView'
     'profile': 'showProfileView'
     'chat': 'showChatView'
-    'logout': 'showLogoutView'
 
   initialize: (@app)->
     Socket.default.on 'user:logged', (user)=>
-      @user = user
+      @user = user # handle user in authentication
       @showChatView() # not here
+
+    Socket.default.on 'user:logout', (value)=>
+      @user = null # handle user in authentication
+      @showLoginView() # not here
     @mainView = new LayoutView
     @app.showView(@mainView)
 
   showView: (childView)->
     childView.on 'socket:emit', (message, args...)=>
-      await libSocket.emitSocket message, args...
+      await Socket.default.emit message, args...
     @mainView.showSubContainerView(childView)
 
   showLoginView: ->
@@ -54,9 +56,3 @@ export default class AppRouter extends Backbone.Router
       @showView chatView
     else
       @showLoginView()
-
-  showLogoutView: -> # change to action
-    @user = null
-    Socket.default.emit 'user:logout'
-    logoutView = new LogoutView
-    @showView logoutView

@@ -32,7 +32,7 @@ io.on 'connection', (socket)->
 
   socket.on 'logout', () ->
     if currentUser?
-      io.emit 'admin:info:logout', currentUser.email
+      io.emit 'user:logout', currentUser.email
       currentUser = null
 
   socket.on 'send:chat:message', (msg, date)->

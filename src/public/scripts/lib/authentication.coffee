@@ -7,7 +7,6 @@ export default Authentication =
     await Socket.default.emit 'login', user, password
 
   logout: ()->
-    debug 'in logout'
-    await Socket.default.emit 'logout'
+    await Socket.default.emit 'logout', null
 
   # singleton event emitter

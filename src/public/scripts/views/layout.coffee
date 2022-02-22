@@ -1,8 +1,9 @@
 Marionette = require 'backbone.marionette'
 import HeaderUserSignupView from 'views/layout/headerusersignup'
 import HeaderUserLoggedView from 'views/layout/headeruserlogged'
-debug = require('debug')('chat:view:layout')
-Socket = require 'lib/socket'
+import Socket from 'lib/socket'
+import Debug from 'debug'
+debug = Debug 'chat:views:layout'
 
 export default class LayoutView extends Marionette.View
   template: require 'templates/layout'
@@ -15,10 +16,10 @@ export default class LayoutView extends Marionette.View
 
   initialize: ()->
     @showHeaderUserSignup()
-    Socket.default.on('user:logged', (user)=>
+    Socket.on('user:logged', (user)=>
       @showHeaderUserLogged(user)
     )
-    Socket.default.on('user:logout', ()=>
+    Socket.on('user:logout', ()=>
       @showHeaderUserSignup()
     )
 

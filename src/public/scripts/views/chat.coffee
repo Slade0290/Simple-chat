@@ -1,7 +1,8 @@
 Marionette = require 'backbone.marionette'
-debug = require('debug')('chat:views:chat')
-Socket = require 'lib/socket'
+import Socket from 'lib/socket'
 import moment from 'moment'
+import Debug from 'debug'
+debug = Debug 'chat:views:chat'
 
 class ChatMessageItem extends Marionette.View
   template: require 'templates/chatmessageitem'
@@ -26,13 +27,13 @@ export default class ChatView extends Marionette.CollectionView
     'submit form': 'sendChatMessage'
 
   initialize: ()->
-    Socket.default.on 'emit:chat:message', (username, message, date)=>
+    Socket.on 'emit:chat:message', (username, message, date)=>
       @showMessage username, message
 
-    Socket.default.on 'user:logged', (username)=>
+    Socket.on 'user:logged', (username)=>
       @showMessage "Admin", "Please welcome #{username}"
 
-    Socket.default.on 'user:logout', (username)=>
+    Socket.on 'user:logout', (username)=>
       @showMessage "Admin", "Say goodbye to #{username}"
 
   sendChatMessage: ()->

@@ -1,5 +1,6 @@
 Marionette = require 'backbone.marionette'
-debug = require('debug')('chat:views:signup')
+import Debug from 'debug'
+debug = Debug 'chat:views:signup'
 
 export default class SignupView extends Marionette.View
   template: require 'templates/signup'
@@ -17,7 +18,7 @@ export default class SignupView extends Marionette.View
 
   submitNewCredential: ()->
     if @ui.password1.val() is @ui.password2.val()
-      @trigger 'socket:emit', 'signup', @ui.email.val(), @ui.password1.val(), @connectToAccount
+      @trigger 'socket:emit', 'signup', @ui.email.val(), @ui.password1.val(), @connectToAccount # change that
     else
       console.log 'show password mismatch'
     return false

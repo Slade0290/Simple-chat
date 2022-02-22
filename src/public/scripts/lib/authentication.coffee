@@ -1,21 +1,15 @@
-debug = require('debug')('chat:lib:authentication')
-Socket = require 'lib/socket'
+import Socket from 'lib/socket'
+import Debug from 'debug'
+debug = Debug 'chat:lib:authentication'
+currentUser = null
 
-export default class Authentication
-
-  instance = null
-
-  constructor: ->
-    debug 'in constructor', instance
-    if instance
-      return instance
-    instance = @
-
-  testMethod: ->
-    console.log 'testMethod'
+export default Authentication =
 
   login: (user, password)->
-    await Socket.default.emit 'login', user, password
+    await Socket.emit 'login', user, password
+    # set user
 
   logout: ->
-    await Socket.default.emit 'logout'
+    await Socket.emit 'logout'
+
+  # get user method

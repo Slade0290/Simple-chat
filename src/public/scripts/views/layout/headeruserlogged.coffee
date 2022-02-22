@@ -1,7 +1,8 @@
 Marionette = require 'backbone.marionette'
-Authentication = require 'lib/authentication'
+import Authentication from 'lib/authentication'
 Socket = require 'lib/socket'
-debug = require('debug')('chat:view:headeruserlogged')
+import Debug from 'debug'
+debug = Debug 'chat:views:headeruserlogged'
 
 export default class HeaderUserLoggedView extends Marionette.View
   template: require 'templates/layout/headeruserlogged'
@@ -12,5 +13,4 @@ export default class HeaderUserLoggedView extends Marionette.View
     'click #logout' : 'logout'
 
   logout: ()->
-    auth = new Authentication.default
-    result = await auth.logout() # handle error ?
+    result = await Authentication.logout() # handle error ?

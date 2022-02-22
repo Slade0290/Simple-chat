@@ -1,4 +1,4 @@
-Marionette = require 'backbone.marionette'
+import Marionette from 'backbone.marionette'
 import Debug from 'debug'
 debug = Debug 'chat:views:signup'
 

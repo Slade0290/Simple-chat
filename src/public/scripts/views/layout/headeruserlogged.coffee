@@ -1,6 +1,5 @@
-Marionette = require 'backbone.marionette'
+import Marionette from 'backbone.marionette'
 import Authentication from 'lib/authentication'
-Socket = require 'lib/socket'
 import Debug from 'debug'
 debug = Debug 'chat:views:headeruserlogged'
 

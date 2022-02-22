@@ -5,6 +5,7 @@ import ProfileView from 'views/profile'
 import ChatView from 'views/chat'
 import LayoutView from 'views/layout'
 import Socket from 'lib/socket'
+import Authentication from 'lib/authentication'
 import Debug from 'debug'
 debug = Debug 'chat:router'
 
@@ -16,12 +17,10 @@ export default class AppRouter extends Backbone.Router
     'chat': 'showChatView'
 
   initialize: (@app)->
-    Socket.on 'user:logged', (user)=>
-      @user = user # handle user in authentication
+    @user = null
+    Socket.on 'user:logged', ()=>
       @showChatView() # not here
-
-    Socket.on 'user:logout', (value)=>
-      @user = null # handle user in authentication
+    Socket.on 'user:logout', ()=>
       @showLoginView() # not here
     @mainView = new LayoutView
     @app.showView(@mainView)
@@ -32,6 +31,7 @@ export default class AppRouter extends Backbone.Router
     @mainView.showSubContainerView(childView)
 
   showLoginView: ->
+    @user = Authentication.getCurrentUser()
     if @user
       @showChatView() # redirection should have chat in url
     else

@@ -1,5 +1,6 @@
-Marionette = require 'backbone.marionette'
-debug = require('debug')('chat:view:headerusersignup')
+import Marionette from 'backbone.marionette'
+import Debug from 'debug'
+debug = Debug 'chat:views:headerusersignup'
 
 export default class HeaderUserSignupView extends Marionette.View
   template: require 'templates/layout/headerusersignup'

@@ -1,4 +1,4 @@
-Marionette = require 'backbone.marionette'
+import Marionette from 'backbone.marionette'
 import Socket from 'lib/socket'
 import moment from 'moment'
 import Debug from 'debug'
@@ -46,12 +46,12 @@ export default class ChatView extends Marionette.CollectionView
       console.error e
     return false
 
-  showMessage: (_username, _textMessage)->
+  showMessage: (username, textMessage)->
     unless @isRendered()
       await new Promise (resolve)=>
         @on 'render', resolve
     @collection.add({
-      username: _username,
-      text: _textMessage,
+      username: username,
+      text: textMessage,
       date: moment().format('MMMM Do YYYY, h:mm:ss a')
     })

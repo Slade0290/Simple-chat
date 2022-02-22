@@ -1,4 +1,4 @@
-Marionette = require 'backbone.marionette'
+import Marionette from 'backbone.marionette'
 import HeaderUserSignupView from 'views/layout/headerusersignup'
 import HeaderUserLoggedView from 'views/layout/headeruserlogged'
 import Socket from 'lib/socket'

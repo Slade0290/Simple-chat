@@ -1,4 +1,5 @@
-debug = require('debug')('chat:lib:socket')
+import Debug from 'debug'
+debug = Debug 'chat:lib:socket'
 import io from 'socket.io-client'
 socket = io()
 

@@ -6,10 +6,12 @@ currentUser = null
 export default Authentication =
 
   login: (user, password)->
+    currentUser = user
     await Socket.emit 'login', user, password
-    # set user
 
   logout: ->
+    currentUser = null
     await Socket.emit 'logout'
 
-  # get user method
+  getCurrentUser: ->
+    return currentUser

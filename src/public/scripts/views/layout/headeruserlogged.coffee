@@ -12,4 +12,5 @@ export default class HeaderUserLoggedView extends Marionette.View
     'click #logout' : 'logout'
 
   logout: ()->
-    result = await Authentication.default.logout() # handle error ?
+    auth = new Authentication.default
+    result = await auth.logout() # handle error ?

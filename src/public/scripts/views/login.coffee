@@ -17,7 +17,8 @@ export default class LoginView extends Marionette.View
 
   submitLoginCredential: ()-> # handle in authentication
     try
-      result = await Authentication.default.login @ui.email.val(), @ui.password.val()
+      auth = new Authentication.default
+      result = await auth.login @ui.email.val(), @ui.password.val()
       if result
         @connectToAccount() # emit event user login tell router to change view
       else

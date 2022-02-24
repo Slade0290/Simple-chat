@@ -12,5 +12,4 @@ export default class HeaderUserLoggedView extends Marionette.View
     'click #logout' : 'logout'
 
   logout: ()->
-    await Authentication.logout()
-    # same as login send to layout
+    @trigger 'logout'

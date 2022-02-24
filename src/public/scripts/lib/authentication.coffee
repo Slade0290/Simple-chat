@@ -43,7 +43,7 @@ export default Authentication = _.extend {}, Backbone.Events,
         debug 'logout fail'
         # show fail message
     catch err
-      console.error 'Error during authentication:', err
+      console.error 'Error during logout:', err
 
   getCurrentUser: ->
     return currentUser

@@ -30,5 +30,8 @@ export default class LayoutView extends Marionette.View
     @showChildView 'headerUserNavigation', new HeaderUserSignupView
 
   showHeaderUserLogged: (user)->
-    @showChildView 'headerUserNavigation', new HeaderUserLoggedView
+    headerUserLoggedView = new HeaderUserLoggedView
       model: new Backbone.Model {currentUser: user}
+    headerUserLoggedView.on 'logout', ()->
+      await Authentication.logout()
+    @showChildView 'headerUserNavigation', headerUserLoggedView

@@ -1,4 +1,16 @@
-<div class="">Avatar<img src="{{currentUser.avatar}}"></div>
-<div class="">Email : {{currentUser.email}}</div>
-<div class="">Username : {{currentUser.username}}</div>
-<div class="">Member since : {{currentUser.signupDate}}</div>
+<div class="user-info-avatar">
+  <img src="{{currentUser.avatar}}">
+  <label>Avatar</label>
+</div>
+<div class="user-info">
+  <label>Email:</label>
+  <span>{{currentUser.email}}</span>
+</div>
+<div class="user-info">
+  <label>Username:</label>
+  <span>{{currentUser.username}}</span>
+</div>
+<div class="user-info">
+  <label>Member since:</label>
+  <span>{{currentUser.signupDate}}</span>
+</div>

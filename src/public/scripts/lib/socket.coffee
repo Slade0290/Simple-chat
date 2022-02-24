@@ -9,8 +9,10 @@ export default Socket =
     socket.on message, callback
 
   emit: (message, args...)->
+    debug 'message, args...', message, args...
     return new Promise((resolve, reject)->
       socket.emit(message, args..., (error, response)->
+        debug 'error, message', error, message
         if error
           console.error error
           reject error
@@ -18,5 +20,3 @@ export default Socket =
           resolve(response)
       )
     )
-
-# pratice promise callback etc..

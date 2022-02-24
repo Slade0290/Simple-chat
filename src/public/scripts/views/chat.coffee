@@ -1,5 +1,6 @@
 import Marionette from 'backbone.marionette'
 import Socket from 'lib/socket'
+import Authentication from 'lib/authentication'
 import moment from 'moment'
 import Debug from 'debug'
 debug = Debug 'chat:views:chat'
@@ -30,10 +31,10 @@ export default class ChatView extends Marionette.CollectionView
     Socket.on 'emit:chat:message', (username, message, date)=>
       @showMessage username, message
 
-    Socket.on 'user:logged', (username)=>
+    Authentication.on 'login', (username)=>
       @showMessage "Admin", "Please welcome #{username}"
 
-    Socket.on 'user:logout', (username)=>
+    Authentication.on 'logout', (username)=>
       @showMessage "Admin", "Say goodbye to #{username}"
 
   sendChatMessage: ()->

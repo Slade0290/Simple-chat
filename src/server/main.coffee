@@ -25,19 +25,23 @@ io.on 'connection', (socket)->
     console.log 'in socket on login server:', email, password, callback
     currentUser = await database.getUser(email)
     if currentUser and bcrypt.compareSync(password, currentUser.password)
-      io.emit 'user:logged', currentUser
-      callback null, true
+      callback null, currentUser
+      console.log 'ok after callback'
     else
       callback null, false
+      console.log 'nok after callback'
 
-  socket.on 'logout', () ->
+  socket.on 'logout', (callback) ->
     if currentUser?
-      io.emit 'user:logout', currentUser.email
       currentUser = null
+    callback null, currentUser
 
   socket.on 'send:chat:message', (msg, date)->
     if currentUser
       io.emit 'emit:chat:message', currentUser.email, msg, date
+
+  socket.on 'test:module', (val1, val2, callback)->
+    callback 'I\'m a message from the server'
 
 http.listen 3000, ()->
   console.log "Server running on 3000"

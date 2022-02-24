@@ -17,53 +17,49 @@ export default class AppRouter extends Backbone.Router
     'chat': 'showChatView'
 
   initialize: (@app)->
-    debug 'in initialize'
     @user = null
     Authentication.on 'login', (user)=>
       @user = user
-      debug 'in initialize on trigger user logged @user:', @user
       @showChatView() # not here
     Authentication.on 'logout', ()=>
       @showLoginView() # not here
     @mainView = new LayoutView
     @app.showView(@mainView)
 
-  showView: (childView)->
+  showView: (childView, route)->
     childView.on 'socket:emit', (message, args...)->
       await Socket.emit message, args...
     @mainView.showSubContainerView(childView)
-    # @navigate()
+    @navigate(route)
 
-  navigate: ()->
+  navigate: (route)->
     debug 'in navigate @', @
-    # Bb changing url
+    debug 'in navigate Backbone.history', Backbone.history
+    Backbone.history.navigate(route,{trigger:false})
 
   showLoginView: ->
-    debug 'in showLoginView @user', @user
     if @user
-      @showChatView() # redirection should have chat in url
+      @showChatView()
     else
       loginView = new LoginView
-      @showView loginView
+      @showView loginView, ''
 
   showSignupView: ->
     signupView = new SignupView
-    @showView signupView
+    @showView signupView, 'signup'
 
   showProfileView: ->
-    debug 'in showProfileView @user:', @user
     if @user
       profileView = new ProfileView
         model: new Backbone.Model({currentUser: @user})
-      @showView profileView
+      @showView profileView, 'profile'
     else
       @showLoginView()
 
   showChatView: ->
-    debug 'in showChatView @user:', @user
     if @user
       chatView = new ChatView
         collection: new Backbone.Collection()
-      @showView chatView
+      @showView chatView, 'chat'
     else
       @showLoginView()

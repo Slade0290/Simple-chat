@@ -11,7 +11,6 @@ export default Authentication = _.extend {}, Backbone.Events,
     try
       res = await Socket.emit 'login', user, password
       if res
-        debug 'login successful res:', res
         currentUser = res
         @trigger('login', currentUser)
       else
@@ -24,7 +23,6 @@ export default Authentication = _.extend {}, Backbone.Events,
     try
       res = await Socket.emit 'logout'
       if res
-        debug 'logout successful'
         currentUser = null
         @trigger('logout', currentUser)
       else

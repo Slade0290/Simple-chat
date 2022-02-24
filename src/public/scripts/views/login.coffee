@@ -17,7 +17,6 @@ export default class LoginView extends Marionette.View
     'submit form': 'submitLoginCredential'
 
   submitLoginCredential: (event)->
-    debug 'in submitLoginCredential'
     event.preventDefault()
     await Authentication.login @ui.email.val(), @ui.password.val()
     return false

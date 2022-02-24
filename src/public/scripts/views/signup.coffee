@@ -1,4 +1,5 @@
 import Marionette from 'backbone.marionette'
+import Authentication from 'lib/authentication'
 import Debug from 'debug'
 debug = Debug 'chat:views:signup'
 
@@ -18,14 +19,8 @@ export default class SignupView extends Marionette.View
 
   submitNewCredential: ()->
     if @ui.password1.val() is @ui.password2.val()
-      @trigger 'socket:emit', 'signup', @ui.email.val(), @ui.password1.val(), @connectToAccount # change that
+      event.preventDefault()
+      await Authentication.signup @ui.email.val(), @ui.password1.val()
     else
-      console.log 'show password mismatch'
-    return false
-
-
-  connectToAccount: (err)->
-    if !err
-      window.location.hash = "#chat"
-    else
-      console.log 'show err', err
+      debug 'password mismatch'
+      # show fail message

@@ -17,9 +17,9 @@ io.on 'connection', (socket)->
     if !currentUser
       hash = bcrypt.hashSync password, 10
       createUserRes = await database.createUser(email, hash)
-      callback()
+      callback null, true
     else
-      callback 'email already used'
+      callback 'email already used', false
 
   socket.on 'login', (email, password, callback)->
     currentUser = await database.getUser(email)

@@ -8,6 +8,17 @@ currentUser = null
 
 export default Authentication = _.extend {}, Backbone.Events,
 
+  signup: (user, password)->
+    try
+      res = await Socket.emit 'signup', user, password
+      if res
+        Navigate.to ''
+      else
+        debug 'signup fail'
+        # show fail message
+    catch error
+      console.error 'Error during signup:', error
+
   login: (user, password)->
     try
       res = await Socket.emit 'login', user, password
@@ -32,7 +43,7 @@ export default Authentication = _.extend {}, Backbone.Events,
         debug 'logout fail'
         # show fail message
     catch err
-      console.error 'Error during authentication: ', err
+      console.error 'Error during authentication:', err
 
   getCurrentUser: ->
     return currentUser

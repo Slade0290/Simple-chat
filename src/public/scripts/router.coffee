@@ -18,10 +18,6 @@ export default class AppRouter extends Backbone.Router
     'chat': 'showChatView'
 
   initialize: (@app)->
-    Authentication.on 'login', (user)=> # in navigate
-      @showChatView() # not here
-    Authentication.on 'logout', ()=> # remove that
-      @showLoginView() # not here
     @mainView = new LayoutView
     @app.showView(@mainView)
 

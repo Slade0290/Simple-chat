@@ -7,18 +7,12 @@ debug = Debug 'chat:lib:navigate'
 export default Navigate =
 
   to: (route)->
-    debug '-------------------------------'
-    debug 'in to destination', route
     isLogged = Authentication.isLoggedIn()
-    debug 'in to destination isLogged', isLogged
     trigger = false
-    if (route is 'chat' or route is 'profile') and !isLogged
-      debug 'not authenticated and in chat or profile'
+    if (route is 'chat' or route is 'profile' or route is '') and !isLogged
       route = ''
       trigger = true
-    else if route is '' and isLogged
-      debug 'in else if'
+    else if (route is '' or route is 'chat' or route is 'signup') and isLogged
       route = 'chat'
       trigger = true
-    debug 'route', route
     Backbone.history.navigate(route,{trigger:trigger})

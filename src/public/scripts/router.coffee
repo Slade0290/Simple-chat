@@ -6,6 +6,7 @@ import ChatView from 'views/chat'
 import LayoutView from 'views/layout'
 import Socket from 'lib/socket'
 import Authentication from 'lib/authentication'
+import Navigate from 'lib/navigate'
 import Debug from 'debug'
 debug = Debug 'chat:router'
 
@@ -17,48 +18,34 @@ export default class AppRouter extends Backbone.Router
     'chat': 'showChatView'
 
   initialize: (@app)->
-    @user = null # can be better
-    Authentication.on 'login', (user)=>
-      @user = user
+    Authentication.on 'login', (user)=> # in navigate
       @showChatView() # not here
-    Authentication.on 'logout', ()=>
-      @user = null # can be better
+    Authentication.on 'logout', ()=> # remove that
       @showLoginView() # not here
     @mainView = new LayoutView
     @app.showView(@mainView)
 
-  showView: (childView, route)->
-    childView.on 'socket:emit', (message, args...)->
-      await Socket.emit message, args...
-    @mainView.showSubContainerView(childView)
-    @navigate(route)
-
-  navigate: (route)->
-    Backbone.history.navigate(route,{trigger:false})
+  showView: (childView)->
+    @mainView.showSubview(childView)
 
   showLoginView: ->
-    if @user
-      @showChatView()
-    else
-      loginView = new LoginView
-      @showView loginView, ''
+    loginView = new LoginView
+    @showView loginView
+    Navigate.to('')
 
   showSignupView: ->
     signupView = new SignupView
-    @showView signupView, 'signup'
+    @showView signupView
+    Navigate.to('signup')
 
   showProfileView: ->
-    if @user
-      profileView = new ProfileView
-        model: new Backbone.Model({currentUser: @user})
-      @showView profileView, 'profile'
-    else
-      @showLoginView()
+    profileView = new ProfileView
+      model: new Backbone.Model({currentUser: Authentication.getCurrentUser()})
+    @showView profileView
+    Navigate.to('profile')
 
   showChatView: ->
-    if @user
-      chatView = new ChatView
-        collection: new Backbone.Collection()
-      @showView chatView, 'chat'
-    else
-      @showLoginView()
+    chatView = new ChatView
+      collection: new Backbone.Collection()
+    @showView chatView
+    Navigate.to('chat')

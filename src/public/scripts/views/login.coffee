@@ -19,4 +19,5 @@ export default class LoginView extends Marionette.View
   submitLoginCredential: (event)->
     event.preventDefault()
     await Authentication.login @ui.email.val(), @ui.password.val()
-    return false
+    if Authentication.isLoggedIn()
+      @trigger 'navigate:to', 'chat'

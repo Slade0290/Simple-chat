@@ -23,7 +23,7 @@ export default class LayoutView extends Marionette.View
     Authentication.on 'logout', ()=>
       @showHeaderUserSignup()
 
-  showSubContainerView: (childView)->
+  showSubview: (childView)->
     @showChildView 'subcontainer', childView
 
   showHeaderUserSignup: ()->

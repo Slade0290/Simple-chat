@@ -12,7 +12,7 @@ export default Authentication = _.extend {}, Backbone.Events,
       res = await Socket.emit 'login', user, password
       if res
         currentUser = res
-        @trigger('login', currentUser)
+        @trigger('login', currentUser) # no need to trigger just use navigate module to go there
       else
         debug 'login fail'
         # show fail message
@@ -24,7 +24,7 @@ export default Authentication = _.extend {}, Backbone.Events,
       res = await Socket.emit 'logout'
       if res
         currentUser = null
-        @trigger('logout', currentUser)
+        @trigger('logout')
       else
         debug 'logout fail'
         # show fail message
@@ -33,3 +33,6 @@ export default Authentication = _.extend {}, Backbone.Events,
 
   getCurrentUser: ->
     return currentUser
+
+  isLoggedIn: ()->
+    currentUser?

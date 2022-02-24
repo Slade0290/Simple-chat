@@ -22,7 +22,6 @@ io.on 'connection', (socket)->
       callback 'email already used'
 
   socket.on 'login', (email, password, callback)->
-    console.log 'in socket on login server:', email, password, callback
     currentUser = await database.getUser(email)
     if currentUser and bcrypt.compareSync(password, currentUser.password)
       callback null, currentUser

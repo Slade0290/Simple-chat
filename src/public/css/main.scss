@@ -27,6 +27,13 @@ html {
               color: white;
             }
           }
+					.headerUserLoggedView {
+            .button {
+              background: rgba(0,0,0,0.2);
+              padding: 1rem;
+              border-radius: 0.5rem;
+            }
+          }
           #header-user-navigation {
             line-height: 4.5em;
             .create-account-url {

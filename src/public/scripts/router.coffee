@@ -17,11 +17,12 @@ export default class AppRouter extends Backbone.Router
     'chat': 'showChatView'
 
   initialize: (@app)->
-    @user = null
+    @user = null # can be better
     Authentication.on 'login', (user)=>
       @user = user
       @showChatView() # not here
     Authentication.on 'logout', ()=>
+      @user = null # can be better
       @showLoginView() # not here
     @mainView = new LayoutView
     @app.showView(@mainView)
@@ -33,8 +34,6 @@ export default class AppRouter extends Backbone.Router
     @navigate(route)
 
   navigate: (route)->
-    debug 'in navigate @', @
-    debug 'in navigate Backbone.history', Backbone.history
     Backbone.history.navigate(route,{trigger:false})
 
   showLoginView: ->

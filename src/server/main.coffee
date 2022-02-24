@@ -32,7 +32,9 @@ io.on 'connection', (socket)->
   socket.on 'logout', (callback) ->
     if currentUser?
       currentUser = null
-    callback null, currentUser
+      callback null, true
+    else
+      callback null, false
 
   socket.on 'send:chat:message', (msg, date)->
     if currentUser

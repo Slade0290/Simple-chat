@@ -32,6 +32,7 @@ html {
               background: rgba(0,0,0,0.2);
               padding: 1rem;
               border-radius: 0.5rem;
+              cursor: pointer;
             }
           }
           #header-user-navigation {
@@ -74,6 +75,13 @@ html {
             .user-info-avatar {
               text-align: center;
               padding-bottom: 2rem;
+            }
+            .fa-pen {
+              cursor: pointer;
+              font-size: 0.7rem;
+              background: rgba(255,255,255,0.3);
+              padding: .2rem .5rem;
+              border-radius: .2rem;
             }
           }
           .chatView {

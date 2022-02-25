@@ -1,6 +1,7 @@
 import Backbone from 'backbone'
 import Socket from 'lib/socket'
 import _ from 'lodash'
+import moment from 'moment'
 import Navigate from 'lib/navigate'
 import Debug from 'debug'
 debug = Debug 'chat:lib:authentication'
@@ -10,9 +11,9 @@ export default Authentication = _.extend {}, Backbone.Events,
 
   signup: (user, password)->
     try
-      res = await Socket.emit 'signup', user, password
+      res = await Socket.emit 'signup', user, password, moment()
       if res
-        Navigate.to ''
+        Navigate.toLogin()
       else
         debug 'signup fail'
         # show fail message
@@ -38,7 +39,7 @@ export default Authentication = _.extend {}, Backbone.Events,
       if res
         @trigger 'logout', currentUser
         currentUser = null
-        Navigate.to ''
+        Navigate.toLogin()
       else
         debug 'logout fail'
         # show fail message

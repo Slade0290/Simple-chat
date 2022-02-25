@@ -5,7 +5,7 @@ function createTable() {
   db.run("CREATE TABLE users(email, password, username, signup_date, avatar)")
 }
 
-function createUser(email, password, username, signup_date, avatar) {
+function createUser(email, password, signup_date, avatar, username) {
   return new Promise((resolve, reject) => {
     console.log('in createUser');
     const query = `INSERT INTO users(email, password, username, signup_date, avatar) VALUES(?,?,?,?,?)`

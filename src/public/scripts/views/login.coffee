@@ -9,7 +9,7 @@ export default class LoginView extends Marionette.View
   className: 'loginView formView'
 
   ui:
-    email: '#email'
+    username: '#username'
     password: '#password'
     button: '#button'
 
@@ -18,4 +18,4 @@ export default class LoginView extends Marionette.View
 
   submitLoginCredential: (event)->
     event.preventDefault()
-    await Authentication.login @ui.email.val(), @ui.password.val()
+    await Authentication.login @ui.username.val(), @ui.password.val()

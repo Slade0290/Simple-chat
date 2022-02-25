@@ -21,27 +21,36 @@ export default class AppRouter extends Backbone.Router
     @mainView = new LayoutView
     @app.showView(@mainView)
 
+  redirectUser: (view)->
+    className = view.constructor.name
+    isLogged = Authentication.isLoggedIn()
+    if !isLogged and className isnt 'SignupView'
+      return new LoginView
+    else if isLogged and className isnt 'ProfileView'
+      chatView = new ChatView
+        collection: new Backbone.Collection()
+      return chatView
+    else
+      return view
+
   showView: (childView)->
-    @mainView.showSubview(childView)
+    view = @redirectUser(childView)
+    @mainView.showSubview(view)
 
   showLoginView: ->
     loginView = new LoginView
     @showView loginView
-    Navigate.to('')
 
   showSignupView: ->
     signupView = new SignupView
     @showView signupView
-    Navigate.to('signup')
 
   showProfileView: ->
     profileView = new ProfileView
       model: new Backbone.Model({currentUser: Authentication.getCurrentUser()})
     @showView profileView
-    Navigate.to('profile')
 
   showChatView: ->
     chatView = new ChatView
       collection: new Backbone.Collection()
     @showView chatView
-    Navigate.to('chat')

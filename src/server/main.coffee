@@ -12,11 +12,11 @@ app.use(express.static(path.join(__dirname,'../public')))
 io.on 'connection', (socket)->
   currentUser = null
 
-  socket.on 'signup', (email, password, callback)->
+  socket.on 'signup', (email, password, signupDate, callback)->
     currentUser = await database.getUser(email)
     if !currentUser
       hash = bcrypt.hashSync password, 10
-      createUserRes = await database.createUser(email, hash)
+      createUserRes = await database.createUser(email, hash, signupDate)
       callback null, true
     else
       callback 'email already used', false

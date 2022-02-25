@@ -25,13 +25,13 @@ export default class AppRouter extends Backbone.Router
     className = view.constructor.name
     isLogged = Authentication.isLoggedIn()
     if !isLogged and className isnt 'SignupView'
-      return new LoginView
+      new LoginView
     else if isLogged and className isnt 'ProfileView'
       chatView = new ChatView
         collection: new Backbone.Collection()
-      return chatView
+      chatView
     else
-      return view
+      view
 
   showView: (childView)->
     view = @redirectUser(childView)

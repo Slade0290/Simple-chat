@@ -11,18 +11,18 @@ app.use(express.static(path.join(__dirname,'../public')))
 
 io.on 'connection', (socket)->
   currentUser = null
-
-  socket.on 'signup', (email, password, signupDate, callback)->
-    currentUser = await database.getUser(email)
+  database.createTable()
+  socket.on 'signup', (username, password, signupDate, callback)->
+    currentUser = await database.getUser(username)
     if !currentUser
       hash = bcrypt.hashSync password, 10
-      createUserRes = await database.createUser(email, hash, signupDate)
+      createUserRes = await database.createUser(username, hash, signupDate)
       callback null, true
     else
-      callback 'email already used', false
+      callback 'username already used', false
 
-  socket.on 'login', (email, password, callback)->
-    currentUser = await database.getUser(email)
+  socket.on 'login', (username, password, callback)->
+    currentUser = await database.getUser(username)
     if currentUser and bcrypt.compareSync(password, currentUser.password)
       callback null, currentUser
     else
@@ -37,7 +37,7 @@ io.on 'connection', (socket)->
 
   socket.on 'send:chat:message', (msg, date)->
     if currentUser
-      io.emit 'emit:chat:message', currentUser.email, msg, date
+      io.emit 'emit:chat:message', currentUser.username, msg, date
 
 http.listen 3000, ()->
   console.log "Server running on 3000"

@@ -1,15 +1,21 @@
+const _ =  require('lodash')
 const sqlite3 = require('sqlite3').verbose()
 let db = new sqlite3.Database('main.db')
 
 function createTable() {
-  db.run("CREATE TABLE users(email, password, username, signup_date, avatar)")
+  res = db.run("SELECT * FROM sqlite_schema")
+  console.log('result', res);
+  // if(_.isEmpty(res)) {
+  //   console.log('in create table query');
+  //   db.run("CREATE TABLE users(username, password, signup_date, avatar)")
+  // }
 }
 
-function createUser(email, password, signup_date, avatar, username) {
+function createUser(username, password, signup_date, avatar) {
   return new Promise((resolve, reject) => {
     console.log('in createUser');
-    const query = `INSERT INTO users(email, password, username, signup_date, avatar) VALUES(?,?,?,?,?)`
-    const res = db.run(query, email, password, username, signup_date, avatar, (err, row) => {
+    const query = `INSERT INTO users(username, password, signup_date, avatar) VALUES(?,?,?,?)`
+    const res = db.run(query, username, password, signup_date, avatar, (err, row) => {
       if(err) {
         reject(err);
       } else {
@@ -19,10 +25,10 @@ function createUser(email, password, signup_date, avatar, username) {
   })
 }
 
-async function getUser(email) {
+async function getUser(username) {
   return new Promise((resolve, reject) => {
-    const query = `SELECT * FROM users WHERE email = ?`
-    const res = db.get(query, email, (err, row) => {
+    const query = `SELECT * FROM users WHERE username = ?`
+    const res = db.get(query, username, (err, row) => {
       if(err) {
         reject(err);
       } else {
@@ -43,9 +49,9 @@ function getAllUsers() {
   })
 }
 
-function deleteUser(email) {
-  const query = `DELETE FROM users WHERE email = ?`
-  db.run(query, email, (err, row) => {
+function deleteUser(username) {
+  const query = `DELETE FROM users WHERE username = ?`
+  db.run(query, username, (err, row) => {
     if (err) return console.error(err.message);
     console.log(`Row(s) deleted`);
   });

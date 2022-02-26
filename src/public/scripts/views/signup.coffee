@@ -9,7 +9,7 @@ export default class SignupView extends Marionette.View
   className: 'signupView formView'
 
   ui:
-    email: '#email'
+    username: '#username'
     password1: '#password1'
     password2: '#password2'
     button: '#button'
@@ -20,7 +20,7 @@ export default class SignupView extends Marionette.View
   submitNewCredential: ()->
     if @ui.password1.val() is @ui.password2.val()
       event.preventDefault()
-      await Authentication.signup @ui.email.val(), @ui.password1.val()
+      await Authentication.signup @ui.username.val(), @ui.password1.val()
     else
       debug 'password mismatch'
       # show fail message

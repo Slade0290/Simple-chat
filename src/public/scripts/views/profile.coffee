@@ -38,9 +38,6 @@ export default class ProfileView extends Marionette.View
 
   hideAndShowUI: (arr)->
     for obj in arr
-      debug 'obj.el', obj.el
-      debug 'obj.el.style.display', obj.el.style.display
-      debug 'obj.action', obj.action
       if obj.action is 'hide'
         obj.el.style.display = 'none'
       else

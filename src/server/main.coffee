@@ -41,11 +41,15 @@ io.on 'connection', (socket)->
       io.emit 'emit:chat:message', currentUser.username, msg, date
 
   socket.on 'update:username', (newUsername, callback)->
-    res = await database.updateUsername(currentUser.username, newUsername)
-    if res
-      callback null, res
+    result = await database.getUser(newUsername)
+    if !result
+      res = await database.updateUsername(currentUser.username, newUsername)
+      if res
+        callback null, res
+      else
+        callback null, false
     else
-      callback null, false
+      callback 'username already used', false
 
   socket.on 'get:user', (username, callback)->
     res = await database.getUser(username)
@@ -54,6 +58,6 @@ io.on 'connection', (socket)->
       callback null, res
     else
       callback null, false
-      
+
 http.listen 3000, ()->
   console.log "Server running on 3000"

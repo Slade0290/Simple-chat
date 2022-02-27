@@ -71,14 +71,31 @@ html {
               display: flex;
               justify-content: space-between;
               width: 15rem;
+              #usernameInput {
+                display: none;
+                width: 50%;
+                margin-left: 1rem;
+                margin-right: 1rem;
+                border: 0;
+                padding: 0;
+                background: rgba(0,0,0,0.3);
+                color: white;
+                &:focus-visible {
+                  outline: none;
+                  border-bottom: .1rem rgba(255,255,255,0.3);
+                }
+              }
+              #buttonCheck {
+                display: none;
+              }
             }
             .user-info-avatar {
               text-align: center;
               padding-bottom: 2rem;
             }
-            .fa-pen {
-              cursor: pointer;
+            .fa-solid {
               font-size: 0.7rem;
+              cursor: pointer;
               background: rgba(255,255,255,0.3);
               padding: .2rem .5rem;
               border-radius: .2rem;

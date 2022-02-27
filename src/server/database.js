@@ -3,12 +3,8 @@ const sqlite3 = require('sqlite3').verbose()
 let db = new sqlite3.Database('main.db')
 
 function createTable() {
-  res = db.run("SELECT * FROM sqlite_schema")
-  console.log('result', res);
-  // if(_.isEmpty(res)) {
-  //   console.log('in create table query');
-  //   db.run("CREATE TABLE users(username, password, signup_date, avatar)")
-  // }
+  console.log('in createTable');
+  db.run("CREATE TABLE IF NOT EXISTS users(username, password, signup_date, avatar)")
 }
 
 function createUser(username, password, signup_date, avatar) {
@@ -38,6 +34,21 @@ async function getUser(username) {
   })
 }
 
+function updateUsername(currentUsername, newUsername) {
+  return new Promise((resolve, reject) => {
+    const query = "UPDATE users SET username = ? WHERE username = ?"
+    const res = db.run(query, newUsername, currentUsername, (err, row) => {
+      if(err) {
+        console.log('err', err);
+        reject(err);
+      } else {
+        console.log('row', row);
+        resolve(true)
+      }
+    })
+  })
+}
+
 function getAllUsers() {
   const query = "SELECT * FROM users"
   let res = db.all(query, [], (err, rows) => {
@@ -52,8 +63,13 @@ function getAllUsers() {
 function deleteUser(username) {
   const query = `DELETE FROM users WHERE username = ?`
   db.run(query, username, (err, row) => {
-    if (err) return console.error(err.message);
-    console.log(`Row(s) deleted`);
+    if (err) {
+      console.error(err.message);
+      return false;
+    } else {
+      console.log(`Row(s) deleted`);
+      return true;
+    }
   });
 }
 
@@ -68,6 +84,7 @@ module.exports = {
   createTable,
   createUser,
   getUser,
+  updateUsername,
   deleteUser,
   getAllUsers,
   closeDb

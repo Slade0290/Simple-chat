@@ -4,7 +4,10 @@
 </div>
 <div class="user-info">
   <label>Username:</label>
-  <span>{{currentUser.username}}<i class="fa-solid fa-pen" id="editUsername"></i></span>
+  <span id="username">{{currentUser.username}}</span>
+  <input type="text" id="usernameInput" autofocus>
+  <i class="fa-solid fa-pen" id="buttonEdit"></i>
+  <i class="fa-solid fa-check" id="buttonCheck"></i>
 </div>
 <div class="user-info">
   <label>Member since:</label>

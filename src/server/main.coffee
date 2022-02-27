@@ -12,6 +12,7 @@ app.use(express.static(path.join(__dirname,'../public')))
 io.on 'connection', (socket)->
   currentUser = null
   database.createTable()
+  console.log database.getAllUsers()
   socket.on 'signup', (username, password, signupDate, callback)->
     currentUser = await database.getUser(username)
     if !currentUser
@@ -39,5 +40,20 @@ io.on 'connection', (socket)->
     if currentUser
       io.emit 'emit:chat:message', currentUser.username, msg, date
 
+  socket.on 'update:username', (newUsername, callback)->
+    res = await database.updateUsername(currentUser.username, newUsername)
+    if res
+      callback null, res
+    else
+      callback null, false
+
+  socket.on 'get:user', (username, callback)->
+    res = await database.getUser(username)
+    console.log 'res', res
+    if res
+      callback null, res
+    else
+      callback null, false
+      
 http.listen 3000, ()->
   console.log "Server running on 3000"

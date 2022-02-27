@@ -26,7 +26,7 @@ export default Authentication = _.extend {}, Backbone.Events,
       if res
         currentUser = res
         @trigger 'login', currentUser
-        Navigate.to 'chat'
+        Navigate.to 'profile'
       else
         debug 'login fail'
         # show fail message
@@ -51,3 +51,15 @@ export default Authentication = _.extend {}, Backbone.Events,
 
   isLoggedIn: ()->
     currentUser?
+
+  updateUser: (newUsername)->
+    debug 'in updateUser newUsername', newUsername
+    try
+      res = await Socket.emit 'get:user', newUsername
+      console.log 'res', res
+      if res
+        currentUser = res
+      else
+        debug 'update user fail'
+    catch error
+      console.error 'Error during update:', error

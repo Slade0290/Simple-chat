@@ -26,7 +26,7 @@ export default Authentication = _.extend {}, Backbone.Events,
       if res
         currentUser = res
         @trigger 'login', currentUser
-        Navigate.to 'profile'
+        Navigate.to 'chat'
       else
         debug 'login fail'
         # show fail message

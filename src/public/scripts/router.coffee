@@ -25,8 +25,10 @@ export default class AppRouter extends Backbone.Router
     className = view.constructor.name
     isLogged = Authentication.isLoggedIn()
     if !isLogged and className isnt 'SignupView'
+      Backbone.history.navigate('',{trigger:false})
       new LoginView
     else if isLogged and className isnt 'ProfileView'
+      Backbone.history.navigate('chat',{trigger:false})
       chatView = new ChatView
         collection: new Backbone.Collection()
       chatView

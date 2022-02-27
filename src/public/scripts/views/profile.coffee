@@ -12,12 +12,17 @@ export default class ProfileView extends Marionette.View
   ui:
     username: '#username'
     usernameInput: '#usernameInput'
-    buttonEdit: '#buttonEdit'
+    buttonEditUsername: '#buttonEditUsername'
     buttonCheck: '#buttonCheck'
+    buttonEditAvatar: "#buttonEditAvatar"
 
   events:
     'click #buttonEdit' : 'editUsername'
     'click #buttonCheck' : 'checkUsername'
+    'click #buttonEditAvatar' : 'editAvatar'
+
+  editAvatar: ->
+    debug 'in editAvatar'
 
   editUsername: ->
     @hideAndShowUI [{el :usernameInput, action: 'show'}, {el: username, action: 'hide'}, {el: buttonEdit, action: 'hide'}, {el: buttonCheck, action: 'show'}]

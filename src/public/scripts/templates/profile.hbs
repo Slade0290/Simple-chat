@@ -1,15 +1,15 @@
 <div class="user-info-avatar">
   <img src="{{currentUser.avatar}}">
-  <label>Avatar <i class="fa-solid fa-pen" id="editAvatar"></i></label>
+  <label>Avatar <i class="fa-solid fa-pen" id="buttonEditAvatar"></i></label>
 </div>
 <div class="user-info">
   <label>Username:</label>
   <span id="username">{{currentUser.username}}</span>
   <input type="text" id="usernameInput" autofocus>
-  <i class="fa-solid fa-pen" id="buttonEdit"></i>
+  <i class="fa-solid fa-pen" id="buttonEditUsername"></i>
   <i class="fa-solid fa-check" id="buttonCheck"></i>
 </div>
 <div class="user-info">
   <label>Member since:</label>
-  <span>{{currentUser.signup_date}}</span>
+  <span>{{moment currentUser.signup_date format="YYYY/MM/DD"}}</span>
 </div>

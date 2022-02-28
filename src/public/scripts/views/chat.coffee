@@ -31,11 +31,11 @@ export default class ChatView extends Marionette.CollectionView
     Socket.on 'emit:chat:message', (username, message, date)=>
       @showMessage username, message
 
-    Authentication.on 'login', (username)=>
-      @showMessage "Admin", "Please welcome #{username}"
+    Authentication.on 'login', (user)=>
+      @showMessage "Admin", "Please welcome #{user.username}"
 
-    Authentication.on 'logout', (username)=>
-      @showMessage "Admin", "Say goodbye to #{username}"
+    Authentication.on 'logout', (user)=>
+      @showMessage "Admin", "Say goodbye to #{user.username}"
 
   sendChatMessage: ()->
     try

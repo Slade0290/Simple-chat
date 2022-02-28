@@ -5,11 +5,11 @@
 <div class="user-info">
   <label>Username:</label>
   <span id="username">{{currentUser.username}}</span>
-  <input type="text" id="usernameInput" autofocus>
+  <input type="text" id="usernameInput">
   <i class="fa-solid fa-pen" id="buttonEditUsername"></i>
   <i class="fa-solid fa-check" id="buttonCheck"></i>
 </div>
 <div class="user-info">
   <label>Member since:</label>
-  <span>{{moment currentUser.signup_date format="YYYY/MM/DD"}}</span>
+  <span>{{dateFormat currentUser.signup_date}}</span>
 </div>

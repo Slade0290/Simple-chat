@@ -18,7 +18,15 @@ module.exports = {
     ],
     module: {
       rules: [
-        { test: /\.hbs$/, loader: "handlebars-loader" },
+        {
+          test: /\.hbs$/,
+          use: [{
+            loader: "handlebars-loader",
+            options: {
+              helperDirs: [path.resolve('src/public/scripts/templates/helpers')]
+            }
+          }]
+        },
         {
           test: /\.coffee$/,
           loader: "coffee-loader",
@@ -26,11 +34,8 @@ module.exports = {
         {
           test: /\.s[ac]ss$/i,
           use: [
-            // Creates `style` nodes from JS strings
             MiniCssExtractPlugin.loader,
-            // Translates CSS into CommonJS
             "css-loader",
-            // Compiles Sass to CSS
             "sass-loader",
           ],
         }

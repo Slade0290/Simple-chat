@@ -3,7 +3,6 @@ const sqlite3 = require('sqlite3').verbose()
 let db = new sqlite3.Database('main.db')
 
 function createTable() {
-  console.log('in createTable');
   db.run("CREATE TABLE IF NOT EXISTS users(username, password, signup_date, avatar)")
 }
 

@@ -12,6 +12,7 @@ app.use(express.static(path.join(__dirname,'../public')))
 io.on 'connection', (socket)->
   currentUser = null
   database.createTable()
+  console.log database.getAllUsers()
   socket.on 'signup', (username, password, signupDate, callback)->
     currentUser = await database.getUser(username)
     if !currentUser

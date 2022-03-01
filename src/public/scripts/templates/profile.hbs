@@ -1,13 +1,16 @@
 <div class="user-info-avatar">
-  <img src="{{currentUser.avatar}}">
+  <div id="avatarContainer">
+    <img id="avatar" src="{{currentUser.avatar}}">
+  </div>
   <label>Avatar <i class="fa-solid fa-pen" id="buttonEditAvatar"></i></label>
+  <input id="fileInput" type="file" name="avatar"/>
 </div>
 <div class="user-info">
   <label>Username:</label>
   <span id="username">{{currentUser.username}}</span>
   <input type="text" id="usernameInput">
   <i class="fa-solid fa-pen" id="buttonEditUsername"></i>
-  <i class="fa-solid fa-check" id="buttonCheck"></i>
+  <i class="fa-solid fa-check" id="buttonCheckUsername"></i>
 </div>
 <div class="user-info">
   <label>Member since:</label>

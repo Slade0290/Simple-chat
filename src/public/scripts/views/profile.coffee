@@ -10,36 +10,46 @@ export default class ProfileView extends Marionette.View
   className: 'profileView'
 
   ui:
+    avatar: '#avatar'
     username: '#username'
     usernameInput: '#usernameInput'
     buttonEditUsername: '#buttonEditUsername'
-    buttonCheck: '#buttonCheck'
+    buttonCheckUsername: '#buttonCheck'
     buttonEditAvatar: "#buttonEditAvatar"
+    fileInput: '#fileInput'
 
   events:
-    'click #buttonEdit' : 'editUsername'
-    'click #buttonCheck' : 'checkUsername'
+    'click #buttonEditUsername' : 'editUsername'
+    'click #buttonCheckUsername' : 'checkUsername'
     'click #buttonEditAvatar' : 'editAvatar'
 
   editAvatar: ->
-    debug 'in editAvatar'
+    fileInput.addEventListener 'change', @handleFile
+    fileInput.click()
+
+  handleFile: ->
+    file = @files[0]
+    fileReader = new FileReader
+    fileReader.onload = ()=>
+      avatar.src = fileReader.result
+      Authentication.updateUserAvatar fileReader.result
+    fileReader.readAsDataURL file
 
   editUsername: ->
-    @hideAndShowUI [{el :usernameInput, action: 'show'}, {el: username, action: 'hide'}, {el: buttonEdit, action: 'hide'}, {el: buttonCheck, action: 'show'}]
+    @hideAndShowUI [{el :usernameInput, action: 'show'}, {el: username, action: 'hide'}, {el: buttonEditUsername, action: 'hide'}, {el: buttonCheckUsername, action: 'show'}]
 
   checkUsername: ->
     newUsername = @ui.usernameInput.val()
     if newUsername
-      res = await Socket.emit 'update:username', newUsername
+      res = Authentication.updateUsername(newUsername)
       if res
-        Authentication.updateUser(newUsername)
-        @hideAndShowUI [{el :usernameInput, action: 'hide'}, {el: username, action: 'show'}, {el: buttonEdit, action: 'show'}, {el: buttonCheck, action: 'hide'}]
+        @hideAndShowUI [{el :usernameInput, action: 'hide'}, {el: username, action: 'show'}, {el: buttonEditUsername, action: 'show'}, {el: buttonCheckUsername, action: 'hide'}]
         @ui.username[0].innerText = @ui.usernameInput.val()
         @ui.usernameInput.val('')
       else
         console.error 'Error during username update:', res
     else
-      debug 'in else checkUsername'
+      debug 'username must contains at least one character'
 
   hideAndShowUI: (arr)->
     for obj in arr

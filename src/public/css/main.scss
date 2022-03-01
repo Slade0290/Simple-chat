@@ -6,7 +6,7 @@ html {
   display: flex;
   body {
     display: flex;
-		margin: 0 auto;
+    margin: 0 auto;
     #main-container {
       display: flex;
       .layoutView {
@@ -18,16 +18,16 @@ html {
         .header {
           display: flex;
           justify-content: space-between;
-					a {
-						color: white;
-					}
+          a {
+            color: white;
+          }
           .title {
             #title-url {
               text-decoration: none;
               color: white;
             }
           }
-					.headerUserLoggedView {
+          .headerUserLoggedView {
             .button {
               background: rgba(0,0,0,0.2);
               padding: 1rem;
@@ -85,13 +85,32 @@ html {
                   border-bottom: .1rem rgba(255,255,255,0.3);
                 }
               }
-              #buttonCheck {
+              #buttonCheckUsername {
                 display: none;
               }
             }
             .user-info-avatar {
               text-align: center;
               padding-bottom: 2rem;
+              #avatarContainer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 12rem;
+                height: 12rem;
+                margin: 2rem;
+                border-radius: 50%;
+                overflow: hidden;
+                background: rgba(255,255,255,0.5);
+                border: 0.2rem white solid;
+                #avatar {
+                  height: 100%;
+                  width: auto;
+                }
+              }
+              #fileInput {
+                display: none;
+              }
             }
             .fa-solid {
               font-size: 0.7rem;

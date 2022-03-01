@@ -38,10 +38,21 @@ function updateUsername(currentUsername, newUsername) {
     const query = "UPDATE users SET username = ? WHERE username = ?"
     const res = db.run(query, newUsername, currentUsername, (err, row) => {
       if(err) {
-        console.log('err', err);
         reject(err);
       } else {
-        console.log('row', row);
+        resolve(true)
+      }
+    })
+  })
+}
+
+function updateUserAvatar(username, avatar) {
+  return new Promise((resolve, reject) => {
+    const query = "UPDATE users SET avatar = ? WHERE username = ?"
+    const res = db.run(query, avatar, username, (err, row) => {
+      if(err) {
+        reject(err);
+      } else {
         resolve(true)
       }
     })
@@ -52,7 +63,6 @@ function getAllUsers() {
   const query = "SELECT * FROM users"
   let res = db.all(query, [], (err, rows) => {
     if(err) return console.error(err.message)
-
     rows.forEach((row) => {
       console.log(row);
     });
@@ -84,6 +94,7 @@ module.exports = {
   createUser,
   getUser,
   updateUsername,
+  updateUserAvatar,
   deleteUser,
   getAllUsers,
   closeDb

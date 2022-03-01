@@ -12,7 +12,6 @@ app.use(express.static(path.join(__dirname,'../public')))
 io.on 'connection', (socket)->
   currentUser = null
   database.createTable()
-  # console.log database.getAllUsers()
   socket.on 'signup', (username, password, signupDate, callback)->
     currentUser = await database.getUser(username)
     if !currentUser
@@ -43,13 +42,18 @@ io.on 'connection', (socket)->
   socket.on 'update:username', (newUsername, callback)->
     result = await database.getUser(newUsername)
     if !result
-      res = await database.updateUsername(currentUser.username, newUsername)
-      if res
-        callback null, res
-      else
-        callback null, false
+      await database.updateUsername(currentUser.username, newUsername)
+      callback null, true
     else
       callback 'username already used', false
+
+  socket.on 'update:avatar', (username, avatar, callback)->
+    result = await database.getUser(username)
+    if result
+      res = await database.updateUserAvatar(username, avatar)
+      callback null, res
+    else
+      callback 'username not found', false
 
   socket.on 'get:user', (username, callback)->
     res = await database.getUser(username)

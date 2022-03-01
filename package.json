@@ -10,6 +10,7 @@
     "backbone.wreqr": "^1.4.0",
     "bcrypt": "^5.0.1",
     "express": "^4.17.2",
+    "fs-extra": "^10.0.1",
     "grunt": "^1.4.1",
     "handlebars": "^4.7.7",
     "jquery": "^3.6.0",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "coffee-loader": "^3.0.0",
     "coffeescript": "^2.6.1",
+    "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.5.1",
     "debug": "^4.3.3",
     "grunt-concurrent": "^3.0.0",

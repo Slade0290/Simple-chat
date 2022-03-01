@@ -6,13 +6,13 @@ path = require 'path'
 bcrypt = require 'bcrypt'
 debug = require('debug')('chat:server')
 database = require './database'
+helpers = require './helpers'
 
 app.use(express.static(path.join(__dirname,'../public')))
 
 io.on 'connection', (socket)->
   currentUser = null
   database.createTable()
-  console.log database.getAllUsers()
   socket.on 'signup', (username, password, signupDate, callback)->
     currentUser = await database.getUser(username)
     if !currentUser
@@ -51,7 +51,10 @@ io.on 'connection', (socket)->
   socket.on 'update:avatar', (username, avatar, callback)->
     result = await database.getUser(username)
     if result
-      res = await database.updateUserAvatar(username, avatar)
+      fileSavePath = "src/public/img/users/avatar-#{result.id}.jpg"
+      helpers.base64ToImageFile(avatar, fileSavePath)
+      fileFetchPath = "img/users/avatar-#{result.id}.jpg"
+      res = await database.updateUserAvatar(username, fileFetchPath)
       callback null, res
     else
       callback 'username not found', false

@@ -1,6 +1,7 @@
 let path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: './src/public/scripts/main.coffee',
@@ -14,6 +15,11 @@ module.exports = {
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: 'src/public/index.html'
+      }),
+      new CopyPlugin({
+        patterns: [
+          { from: 'src/public/img', to: 'img'}
+        ]
       })
     ],
     module: {
